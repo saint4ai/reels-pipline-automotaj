@@ -77,7 +77,7 @@ def captions_html(groups, emph: dict, lane: dict, base_size: int = 66) -> str:
     parts = []
     for g in groups:
         label_len = sum(len(w["text"]) for w in g["words"]) + len(g["words"]) - 1
-        est = label_len * base_size * 0.62                      # оценка ширины строки Gilroy 900
+        est = label_len * base_size * 0.60                      # оценка ширины строки Manrope 800
         size = base_size if est <= lane.get("w", 840) - 60 else max(46, int(base_size * (lane.get("w", 840) - 60) / est))
         spans = []
         for w in g["words"]:
@@ -109,6 +109,14 @@ def fonts_css(project: Path) -> str:
     for name in ("Benzin-ExtraBold.ttf", "Benzin-Bold.ttf"):
         if (dst / name).exists():
             faces.append(f'@font-face{{font-family:"Benzin";font-weight:800;src:url("assets/fonts/{name}") format("truetype")}}')
+    # система с 03.09.2026: Manrope (переменный 200–800), JetBrains Mono (переменный), Benzin Bold как запасной H1
+    for name, css in (
+        ("Manrope-Variable.ttf", '@font-face{font-family:"Manrope";font-weight:200 800;font-style:normal;src:url("assets/fonts/Manrope-Variable.ttf") format("truetype")}'),
+        ("JetBrainsMono-Variable.ttf", '@font-face{font-family:"JetBrains Mono";font-weight:100 800;font-style:normal;src:url("assets/fonts/JetBrainsMono-Variable.ttf") format("truetype")}'),
+        ("Benzin-Bold.otf", '@font-face{font-family:"Benzin";font-weight:700;src:url("assets/fonts/Benzin-Bold.otf") format("opentype")}'),
+    ):
+        if (dst / name).exists():
+            faces.append(css)
     for name in ("stix-two-text-cyrillic-700-italic.woff2", "stix-two-text-latin-700-italic.woff2"):
         if (dst / name).exists():
             faces.append(f'@font-face{{font-family:"STIX Two Text";font-weight:700;font-style:italic;src:url("assets/fonts/{name}") format("woff2")}}')
@@ -270,7 +278,7 @@ def build(project: Path) -> dict:
       :root{{--paper:{th['paper']};--paper-mid:{th['paperMid']};--paper-lo:{th['paperLo']};--ink:{th['ink']};--lime:{th['lime']};--orange:{th['orange']};--grey:{th['grey']}}}
       *,*::before,*::after{{box-sizing:border-box}}
       html,body{{width:1080px;height:1920px;margin:0;overflow:hidden;background:var(--paper-mid)}}
-      body{{font-family:"Gilroy",Arial,sans-serif;color:var(--ink)}}
+      body{{font-family:"Manrope","Gilroy",Arial,sans-serif;color:var(--ink)}}
       #root{{position:relative;width:1080px;height:1920px;overflow:hidden;isolation:isolate}}
       #bg{{position:absolute;inset:0;overflow:hidden;background:
             radial-gradient(circle at 18% 2%,rgba(255,255,255,.95),transparent 35%),
@@ -290,7 +298,7 @@ def build(project: Path) -> dict:
       .cap-card{{display:inline-flex;align-items:center;justify-content:center;gap:0 16px;max-width:100%;padding:16px 26px 19px;
                  background:rgba(4,4,4,.24);border:1px solid rgba(255,255,255,.22);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.20)}}
       /* караоке: текст залит градиентом «цвет | серый», background-position едет от 100% (серый) к 0% (цвет) */
-      .cw{{display:inline-block;font-family:"Gilroy",Arial,sans-serif;font-weight:900;font-size:inherit;line-height:1.03;white-space:nowrap;{"text-transform:uppercase;" if cap.get("uppercase") else ""}
+      .cw{{display:inline-block;font-family:"Manrope","Gilroy",Arial,sans-serif;font-weight:800;font-size:inherit;line-height:1.03;white-space:nowrap;{"text-transform:uppercase;" if cap.get("uppercase") else ""}
            letter-spacing:-.01em;color:transparent;-webkit-background-clip:text;background-clip:text;background-repeat:no-repeat;
            background-image:linear-gradient(90deg,#ffffff 0 48%,#d6d6d6 52% 100%);background-size:200% 100%;background-position:100% 0}}
       .cw--emph{{font-family:"STIX Two Text",Georgia,serif;font-style:italic;font-weight:700;letter-spacing:-.03em;padding-right:.04em;

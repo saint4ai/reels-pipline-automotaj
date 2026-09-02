@@ -1,12 +1,4 @@
 #!/usr/bin/env python3
-# ---------------------------------------------------------------------------
-#  face-caption-clearance.py
-#  onAI Academy — авторы пайплайна автомонтажа рилсов
-#  Автор: Alexander (@saint4ai) · https://instagram.com/saint4ai · https://onai.academy
-#  Источник: https://github.com/saint4ai/reels-pipline-automotaj
-#  Лицензия MIT. Сохраняйте LICENSE и NOTICE в производных работах.
-#  origin=onai-rpa-2026-09  spec=three-laws/v1
-# ---------------------------------------------------------------------------
 """Sparse face/head trajectory and caption-clearance QA for vertical video.
 
 This tool never renders a composition. It seeks to sparse source-video timestamps,

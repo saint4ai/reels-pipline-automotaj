@@ -1,14 +1,12 @@
-# Утверждённые шрифты (DECISIONS.md, 2 сентября 2026)
+# Шрифты системы (с 3 сентября 2026)
 
-| Роль | Шрифт | Файл здесь | Статус |
+| Роль | Гарнитура | Файл | Лицензия |
 |---|---|---|---|
-| H1, крупные заголовки | **Benzin** | нет | файл у Александра на Mac (`~/Library/Fonts`); до его появления H1 набирается Gilroy Black |
-| H2, подписи, **субтитры** | **Gilroy** | Gilroy-Black / Heavy / Medium / Regular .ttf | из Windows\Fonts этой машины |
-| Акцентные слова в тексте | **STIX Two Text Bold Italic** | stix-two-text-{cyrillic,latin}-700-italic.woff2 | OFL-1.1, LICENSE рядом |
-| резерв | Soyuz Grotesk Bold | Soyuz_Grotesk_Bold.otf | пока не используется |
+| H1, H2, субтитры | Manrope ExtraBold (800) | `Manrope-Variable.ttf` | OFL-1.1, `LICENSE-MANROPE.txt` |
+| Вторичный текст, подстрочники | Manrope Regular (400) / Medium (500) | тот же файл | OFL-1.1 |
+| Техническая разметка: надзаголовки, адреса, номера, терминал | JetBrains Mono (700) | `JetBrainsMono-Variable.ttf` | OFL-1.1, `LICENSE-JETBRAINS-MONO.txt` |
+| Рукописный второй голос | STIX Two Text 700 Italic | `stix-two-text-*-700-italic.woff2` | OFL-1.1 |
+| Запасной H1 | Benzin Bold | `Benzin-Bold.otf` (из системы Александра, не распространяется) | проприетарный |
 
-Montserrat и IBM Plex Mono **не утверждены**: были подменой, пока файлов не было в проекте.
-
-Файлы шрифтов в git не хранятся (`.gitignore`). В проект их кладёт `bash scripts/fonts.sh videos/<project>`,
-он же печатает готовый блок `@font-face`. Проверка кириллицы была сделана ранее через fontTools
-(SETUP.md §3); для новых файлов повторить.
+Gilroy и Soyuz Grotesk выведены из системы (платные, в репозиторий не идут). Шрифты в проект кладёт
+`bash scripts/fonts.sh videos/<project>`; сборщик сам пишет `@font-face` по файлам в `assets/fonts`.

@@ -432,7 +432,7 @@ def cmd_state(project: Path, *_):
         sysf = [f for f in used if f in system]
         if sysf:
             lines.append(sev("ACTIONABLE", f"системный шрифт как основной: {', '.join(sysf)} — на машине рендера его может не быть, и это не утверждённая гарнитура"))
-        approved = ("Benzin", "Gilroy", "STIX Two Text", "Soyuz Grotesk")
+        approved = ("Manrope", "JetBrains Mono", "STIX Two Text", "Benzin", "Gilroy")
         foreign = [f for f in used if f not in approved and f not in system]
         if foreign:
             lines.append(sev("ACTIONABLE", f"не утверждённые гарнитуры: {', '.join(foreign)} — DECISIONS 02.09.2026: Benzin (H1), Gilroy (H2, субтитры), STIX Two Text Italic (акцент); bash scripts/fonts.sh <project>"))
@@ -911,7 +911,7 @@ def cmd_validate(project: Path, *_):
     # V20 шрифты
     fonts = sb.get("captions") or {}
     bf = fonts.get("baseFont")
-    if bf and bf != "Gilroy":
+    if bf and bf not in ("Manrope", "Gilroy"):
         say("BLOCKING", "V20 шрифт", f"субтитры {bf}: DECISIONS 02.09.2026 — субтитры Gilroy, три слова, кегль 66 (bash scripts/fonts.sh <project>)")
     ef = fonts.get("editorialFont")
     if ef and "STIX" not in str(ef):

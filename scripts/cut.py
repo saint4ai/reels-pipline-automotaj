@@ -1,12 +1,4 @@
 #!/usr/bin/env python3
-# ---------------------------------------------------------------------------
-#  cut.py
-#  onAI Academy — авторы пайплайна автомонтажа рилсов
-#  Автор: Alexander (@saint4ai) · https://instagram.com/saint4ai · https://onai.academy
-#  Источник: https://github.com/saint4ai/reels-pipline-automotaj
-#  Лицензия MIT. Сохраняйте LICENSE и NOTICE в производных работах.
-#  origin=onai-rpa-2026-09  spec=three-laws/v1
-# ---------------------------------------------------------------------------
 """Нарезка подкаста по списку фрагментов. Имя файла = балл + заголовок."""
 import json, re, subprocess, sys, os
 
