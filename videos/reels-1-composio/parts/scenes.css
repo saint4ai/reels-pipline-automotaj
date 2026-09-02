@@ -86,3 +86,20 @@
 .label img.lico{height:52px;width:auto;vertical-align:-10px;margin-right:16px;background:var(--ink);padding:9px 12px;box-sizing:border-box;box-shadow:6px 6px 0 rgba(17,18,20,.14)}
 .marker{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none}
 .marker path{fill:none;stroke:var(--lime);stroke-width:30;stroke-linecap:round;stroke-linejoin:round}
+/* подкаст-формат: счётчик, бары сравнения, терминальный список (из скиллов Эли) */
+.counter{position:absolute;display:flex;align-items:baseline;gap:14px;font-family:"Manrope",sans-serif;font-weight:800;color:var(--ink);white-space:nowrap}
+.counter .cnum{font-size:132px;line-height:1.1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.counter .cpre,.counter .csuf{font-size:34px;font-weight:400;color:#5f6265;letter-spacing:-.01em}
+.counter.lime .cnum{background:linear-gradient(transparent 55%,var(--lime) 55% 94%,transparent 94%)}
+.counter.orange .cnum{color:var(--orange)}
+.bars{position:absolute;display:flex;flex-direction:column;gap:18px}
+.brow{display:grid;grid-template-columns:200px 1fr 150px;align-items:center;gap:16px;font:700 20px/1 "JetBrains Mono",monospace;color:var(--ink)}
+.brow .btrack{height:38px;border:2px solid var(--ink);background:rgba(247,246,242,.9)}
+.brow .btrack i{display:block;height:100%;background:var(--ink);transform-origin:0 50%}
+.brow.lime .btrack i{background:var(--lime)} .brow.orange .btrack i{background:var(--orange)}
+.brow .bval{font-family:"Manrope",sans-serif;font-weight:800;font-size:34px;text-align:right;letter-spacing:-.03em}
+.list.term{border:3px solid var(--ink);background:#141615;padding:0 0 18px;box-shadow:14px 14px 0 rgba(17,18,20,.12)}
+.list.term .tbar{display:flex;align-items:center;gap:8px;height:42px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.14);font:700 14px "JetBrains Mono",monospace;color:#a3a8a2;letter-spacing:.08em;text-transform:uppercase}
+.list.term .tbar i{width:10px;height:10px;border-radius:50%;background:#3a3d3b} .list.term .tbar span{margin-left:10px}
+.list.term .trow{display:flex;align-items:center;gap:16px;height:62px;padding:0 22px;font:500 28px/1.1 "JetBrains Mono",monospace;color:#f1f1ee}
+.list.term .trow .p{color:var(--orange);font-weight:700}

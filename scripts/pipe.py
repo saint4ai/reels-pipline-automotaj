@@ -882,8 +882,8 @@ def cmd_validate(project: Path, *_):
         if gaps:
             say("ACTIONABLE", "V12 динамика", "паузы без визуального события дольше 4 с: "
                 + "; ".join(f"{a:.1f}–{b:.1f}" for a, b in gaps[:5]) + " (DECISIONS: блоки визуализации без пауз)")
-    # V24 положение спикера меняется не реже раза в 10 с (DECISIONS 02.09.2026)
-    if dur:
+    # V24 положение спикера меняется не реже раза в 10 с (DECISIONS 02.09.2026); формат podcast — спикер всегда в нижней половине (11_formats)
+    if dur and (sb.get("format") != "podcast"):
         mv = sorted(set([0.0] + [e["t"] for e in ev if e["kind"] == "MOVE"] + [dur]))
         long = [(a, b) for a, b in zip(mv, mv[1:]) if b - a > 10.0]
         if long:

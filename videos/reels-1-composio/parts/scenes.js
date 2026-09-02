@@ -53,6 +53,20 @@ function buildObject(o,scene,idx){
   }else if(o.kind==="stamp"){
     e=el("div","stamp "+(o.color||"lime"),o.text); e.id=id; place(e,o.box); e.style.fontSize=Math.round(o.box.h*.62)+"px"; host.appendChild(e);
     tl.fromTo("#"+id,{autoAlpha:0,scale:.55,rotation:(o.rotate||0)-8},{autoAlpha:1,scale:1,rotation:o.rotate||0,duration:.22,ease:"back.out(1.8)"},o.at); hideAt("#"+id,until);
+  }else if(o.kind==="counter"){
+    e=el("div","counter",(o.prefix?'<span class="cpre">'+o.prefix+'</span>':'')+'<span class="cnum" id="'+id+'-n">0</span>'+(o.suffix?'<span class="csuf">'+o.suffix+'</span>':''));
+    e.id=id; if(o.color) e.classList.add(o.color); place(e,o.box); host.appendChild(e);
+    riseIn("#"+id,o.at); hideAt("#"+id,until);
+    (function(){var st={v:0},tgt=o.value,fmt=o.format||"int",nd=document.getElementById(id+"-n");
+      tl.to(st,{v:tgt,duration:o.dur||.9,ease:"power2.out",onUpdate:function(){var v=st.v;
+        nd.textContent=fmt==="float1"?v.toFixed(1).replace(".",","):Math.round(v).toLocaleString("ru-RU").replace(/\u00a0/g," ");}},o.at+.05);})();
+  }else if(o.kind==="bars"){
+    e=el("div","bars"); e.id=id; place(e,o.box); var mx=Math.max.apply(null,o.rows.map(function(r){return r.value;}));
+    o.rows.forEach(function(r,i){var row=el("div","brow"+(r.color?" "+r.color:""),'<span class="blab">'+r.label+'</span><span class="btrack"><i id="'+id+'-b'+i+'" style="width:'+Math.round(r.value/mx*100)+'%"></i></span><span class="bval">'+(r.text||r.value)+'</span>'); row.id=id+"-r"+i; e.appendChild(row);});
+    host.appendChild(e); tl.set("#"+id,{autoAlpha:1},0);
+    o.rows.forEach(function(r,i){var sel="#"+id+"-r"+i; tl.set(sel,{autoAlpha:0},0); tl.fromTo(sel,{autoAlpha:0,x:-24},{autoAlpha:1,x:0,duration:.28,ease:"power3.out"},r.at||o.at);
+      tl.fromTo("#"+id+"-b"+i,{scaleX:0},{scaleX:1,duration:.6,ease:"power3.out"},(r.at||o.at)+.1);});
+    hideAt("#"+id,until);
   }else if(o.kind==="note"){
     e=el("div","note",o.text); e.id=id; place(e,o.box); host.appendChild(e);
     tl.fromTo("#"+id,{autoAlpha:0,rotation:-3,y:10},{autoAlpha:1,rotation:-3,y:0,duration:.22,ease:"power3.out"},o.at); hideAt("#"+id,until);
@@ -94,8 +108,9 @@ SC.forEach(function(s){
     card.appendChild(el("div","eyebrow",s.eyebrow||""));
     var h=el("div","headline"+(s.headlineStyle==="script"?" script":""),fmt(s.headline||"")); card.appendChild(h);
     if(s.subline){var sl=el("div","subline"+(s.subline.style==="sans"?" sans":""),s.subline.text); sl.id=node.id+"-sub"; card.appendChild(sl);}
-    if(s.list){var list=el("div","list"); card.appendChild(list);
-      s.list.forEach(function(li,i){var line=el("div","line",'<span class="n">'+String(i+1).padStart(2,"0")+'</span>'+(ICONS[li.icon]||"")+'<span class="t">'+li.text+'</span>'); line.id=node.id+"-l"+i; list.appendChild(line);});}
+    if(s.list){var term=s.listStyle==="terminal"; var list=el("div",term?"list term":"list"); card.appendChild(list);
+      if(term){list.appendChild(el("div","tbar",'<i></i><i></i><i></i><span>'+(s.termTitle||"claude")+'</span>'));}
+      s.list.forEach(function(li,i){var line=term?el("div","trow",'<span class="p">›</span><span class="t">'+li.text+'</span>'):el("div","line",'<span class="n">'+String(i+1).padStart(2,"0")+'</span>'+(ICONS[li.icon]||"")+'<span class="t">'+li.text+'</span>'); line.id=node.id+"-l"+i; list.appendChild(line);});}
     if(s.chips){var row=el("div","chips"); card.appendChild(row);
       s.chips.forEach(function(c,i){var ch=el("div","pchip",'<img src="'+c.icon+'" alt=""><span>'+c.text+'</span>'); ch.id=node.id+"-c"+i; row.appendChild(ch);});}
     // объекты карточки живут внутри карточки (координаты относительно карточки)
