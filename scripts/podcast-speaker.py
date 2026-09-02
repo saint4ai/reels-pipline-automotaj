@@ -53,7 +53,7 @@ tmpd=tempfile.mkdtemp(); parts=[]
 for i,(s,e,k) in enumerate(segs):
     if e-s<0.04: continue
     if k=='w':   # общий план: колонка 9:16, окно 9:8 с головой у верха (смещение 0.28 высоты)
-        vf=f"crop=1215:1080:{COL[a.who]}:{int(0.28*2160)},scale=1080:960:flags=lanczos"
+        vf=f"crop=1215:1080:{COL[a.who]}:{int(0.24*2160)},scale=1080:960:flags=lanczos"   # голова на 60+ px ниже плашки субтитров на шве
     else:        # крупный план: 9:8 вокруг лица по центру колонки
         x=max(0,min(3840-2430,cx-1215)); vf=f"crop=2430:2160:{x}:0,scale=1080:960:flags=lanczos"
     p=os.path.join(tmpd,f'seg{i:02d}.mp4'); parts.append(p)

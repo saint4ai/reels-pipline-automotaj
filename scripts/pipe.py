@@ -704,6 +704,8 @@ def cmd_validate(project: Path, *_):
             x, y, w, h = b
             ly = float(st.get("captionY", lane_cy0)) - lh / 2   # полоса субтитров у каждого состояния своя
             gap = max(y - (ly + lh), ly - (y + h))
+            if sb.get("format") == "podcast" and abs((ly + lh / 2) - y) <= 1:   # подкаст: плашка на шве, половина на видео (Александр 03.09)
+                continue
             if gap < 0:
                 say("BLOCKING", "V4 субтитры", f"полоса {ly:.0f}–{ly + lh:.0f} перекрывает {sname} ({y:.0f}–{y + h:.0f}) на {-gap:.0f} px")
             elif gap < 32:
@@ -753,6 +755,11 @@ def cmd_validate(project: Path, *_):
             if not bx:
                 continue
             ab = (ox + float(bx.get("x", 0)), oy + float(bx.get("y", 0)), float(bx.get("w", 0)), float(bx.get("h", 0)))
+            rot = abs(float(o.get("rotate", 0) or 0))
+            if rot:   # повёрнутый объект (штамп): описанный прямоугольник, иначе углы наезжают на соседей незаметно для проверки
+                import math as _m
+                cw, ch = ab[2] * _m.cos(_m.radians(rot)) + ab[3] * _m.sin(_m.radians(rot)), ab[2] * _m.sin(_m.radians(rot)) + ab[3] * _m.cos(_m.radians(rot))
+                ab = (ab[0] + ab[2] / 2 - cw / 2, ab[1] + ab[3] / 2 - ch / 2, cw, ch)
             objs.append((o, ab, float(o.get("at", s_from)), float(o.get("until", s_to))))
         for i in range(len(objs)):
             oi, bi, ai, ui = objs[i]
