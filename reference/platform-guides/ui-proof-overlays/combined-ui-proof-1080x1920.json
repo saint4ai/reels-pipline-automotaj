@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "id": "instagram-tiktok-combined-ui-proof-1080x1920-2026-08-31",
+  "platform": "Instagram Reels + TikTok",
+  "checkedAt": "2026-08-31",
+  "purpose": "qa-only-cross-platform-ui-collision-proof",
+  "neverBurnIntoDelivery": true,
+  "composition": "union-of-instagram-and-tiktok-ui-pressure-zones",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "aspectRatio": "9:16",
+    "origin": "top-left",
+    "units": "px"
+  },
+  "onaiSafeRect": {
+    "x": 120,
+    "y": 260,
+    "width": 720,
+    "height": 1100,
+    "right": 840,
+    "bottom": 1360
+  },
+  "unionPressureZones": {
+    "topNavProfile": {
+      "label": "Union: Reels header/profile and TikTok Following/For You/search",
+      "rect": { "x": 0, "y": 0, "width": 1080, "height": 260 }
+    },
+    "rightActionRail": {
+      "label": "Union: profile, heart, comment, bookmark, send/share and overflow controls",
+      "rect": { "x": 840, "y": 360, "width": 240, "height": 1100 }
+    },
+    "bottomCaptionNav": {
+      "label": "Union: profile/username, captions, music, CTA/add-ons and bottom navigation",
+      "rect": { "x": 0, "y": 1360, "width": 1080, "height": 560 }
+    },
+    "leftReserve": {
+      "label": "Cross-device crop reserve",
+      "rect": { "x": 0, "y": 0, "width": 120, "height": 1920 }
+    }
+  },
+  "captionPresets": {
+    "podcast": {
+      "centerY": 960,
+      "offsetFromFrameCenterPercent": 0,
+      "rect": { "x": 120, "y": 904, "width": 720, "height": 112 }
+    },
+    "expertPortrait": {
+      "centerY": 1248,
+      "offsetFromFrameCenterPx": 288,
+      "offsetFromFrameCenterPercent": 15,
+      "rect": { "x": 120, "y": 1192, "width": 720, "height": 112 }
+    },
+    "expertSplitFallback": {
+      "centerY": 872,
+      "placement": "above-face-fallback-when-below-head-slot-is-not-legal",
+      "rect": { "x": 120, "y": 816, "width": 720, "height": 112 }
+    },
+    "fullGraphics": {
+      "centerY": 536,
+      "placement": "graphics-only-no-face",
+      "rect": { "x": 120, "y": 480, "width": 720, "height": 112 }
+    }
+  },
+  "faceAwarePlacement": {
+    "rule": "Track the face/head through the shot. Prefer the expertPortrait band below the head; use expertSplitFallback above the face only when the lower slot would collide with platform UI or leave insufficient clearance.",
+    "minimumFaceCaptionGapPx": 32,
+    "preferredFaceCaptionGapPx": 48
+  },
+  "sources": [
+    "instagram-reels-ui-proof-1080x1920.json",
+    "tiktok-ui-proof-1080x1920.json"
+  ],
+  "acceptance": [
+    "Critical text, logos, CTA and active diagram nodes remain inside x=120..840 and y=260..1360.",
+    "Use only the matching compact 720x112 caption preset: podcast centerY=960, expert portrait centerY=1248, expert split fallback centerY=872, full graphics centerY=536.",
+    "For face shots, verify the active card clears the detected face/head by at least 32 px (48 px preferred).",
+    "Critical elements avoid the union of both platforms' top, right and bottom UI pressure zones.",
+    "Overlay is hidden before delivery export."
+  ]
+}

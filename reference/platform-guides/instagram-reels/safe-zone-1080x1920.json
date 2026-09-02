@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "id": "instagram-reels-onai-1080x1920-2026-08-31",
+  "platform": "Instagram Reels",
+  "checkedAt": "2026-08-31",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "aspectRatio": "9:16",
+    "sampleAspectRatio": "1:1"
+  },
+  "metaPublishedAdGuide": {
+    "scope": "Meta publishes these margins for Reels ads. This project also uses them as a conservative QA reference for organic Reels because the organic viewer has comparable interface overlays.",
+    "sourceUrl": "https://www.facebook.com/business/ads-guide/update/video/instagram-reels",
+    "safeZoneHelpUrl": "https://www.facebook.com/business/help/980593475366490",
+    "clearMarginsPercent": {
+      "top": 14,
+      "bottom": 35,
+      "left": 6,
+      "right": 6
+    },
+    "clearMarginsPx": {
+      "top": 269,
+      "bottom": 672,
+      "left": 65,
+      "right": 65
+    },
+    "safeRect": {
+      "x": 65,
+      "y": 269,
+      "width": 950,
+      "height": 979
+    }
+  },
+  "observedPublishedReel": {
+    "referenceScreenshot": "codex-clipboard-d9287cee-1d4f-4be7-a905-a633ed78d740.png",
+    "viewportWidth": 590,
+    "viewportHeight": 1280,
+    "fitMode": "cover",
+    "calculation": "At viewport height 1280, a 9:16 asset is 720 px wide. The 590 px viewport therefore removes 130 px in total, or 9.03% from each source side. 9.03% of 1080 is 97.5 px.",
+    "horizontalCropPx": {
+      "left": 98,
+      "right": 98
+    },
+    "visibleRect": {
+      "x": 98,
+      "y": 0,
+      "width": 884,
+      "height": 1920
+    }
+  },
+  "onaiZones": {
+    "criticalContent": {
+      "description": "Headlines, subtitles, CTA, technology names, real logos and any object required to understand the claim.",
+      "rect": {
+        "x": 108,
+        "y": 269,
+        "width": 756,
+        "height": 979
+      }
+    },
+    "supportingVisual": {
+      "description": "Non-critical diagram branches and large illustrative objects. They may enter UI pressure areas but must remain readable after the measured device crop.",
+      "rect": {
+        "x": 100,
+        "y": 180,
+        "width": 880,
+        "height": 1320
+      }
+    },
+    "rightActionRail": {
+      "description": "Observed Instagram interaction controls. Do not place text, logos or active diagram nodes here.",
+      "rect": {
+        "x": 864,
+        "y": 360,
+        "width": 216,
+        "height": 1160
+      }
+    },
+    "captionBand": {
+      "description": "Standard centered subtitle container straddling the 50/50 composition seam.",
+      "rect": {
+        "x": 120,
+        "y": 880,
+        "width": 744,
+        "height": 160
+      },
+      "centerY": 960
+    },
+    "decorativeBleed": {
+      "description": "Background gradient, grid, light sweep, texture and non-semantic shapes only.",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1080,
+        "height": 1920
+      }
+    }
+  },
+  "qaRule": "The overlay is a review layer only. Never burn it into a delivery master. A visual pass is still required because pixel analysis cannot reliably distinguish decoration from critical content."
+}

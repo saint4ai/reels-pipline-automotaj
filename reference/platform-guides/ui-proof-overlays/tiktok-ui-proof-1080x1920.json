@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "id": "tiktok-ui-proof-1080x1920-2026-08-31",
+  "platform": "TikTok",
+  "checkedAt": "2026-08-31",
+  "purpose": "qa-only-ui-collision-proof",
+  "neverBurnIntoDelivery": true,
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "aspectRatio": "9:16",
+    "origin": "top-left",
+    "units": "px"
+  },
+  "evidence": {
+    "officialCreativeGuidance": "https://ads.tiktok.com/help/article/creative-best-practices",
+    "officialSafeZoneNotes": "https://ads.tiktok.com/help/article/tiktok-auction-in-feed-ads",
+    "note": "TikTok states that key information must remain visible inside the UI safe zone. Exact safe geometry varies with caption length, add-ons, locale and placement, so ONai uses a conservative internal proof rectangle."
+  },
+  "onaiSafeRect": {
+    "x": 120,
+    "y": 260,
+    "width": 720,
+    "height": 1100,
+    "right": 840,
+    "bottom": 1360
+  },
+  "uiPressureZones": {
+    "topNavProfile": {
+      "label": "Following/For You tabs, LIVE/search and profile/header experiments",
+      "rect": { "x": 0, "y": 0, "width": 1080, "height": 260 }
+    },
+    "rightActionRail": {
+      "label": "Profile follow, heart, comment, bookmark and share controls",
+      "rect": { "x": 840, "y": 360, "width": 240, "height": 1100 },
+      "representativeCenters": [
+        { "control": "profile-follow", "x": 960, "y": 500 },
+        { "control": "heart", "x": 960, "y": 650 },
+        { "control": "comment", "x": 960, "y": 790 },
+        { "control": "bookmark", "x": 960, "y": 930 },
+        { "control": "share", "x": 960, "y": 1070 }
+      ]
+    },
+    "bottomCaptionNav": {
+      "label": "Username, caption, music ticker, CTA/add-ons and app navigation",
+      "rect": { "x": 0, "y": 1360, "width": 1080, "height": 560 }
+    },
+    "leftReserve": {
+      "label": "Crop and device-layout reserve",
+      "rect": { "x": 0, "y": 0, "width": 120, "height": 1920 }
+    }
+  },
+  "captionPresets": {
+    "podcast": {
+      "centerY": 960,
+      "offsetFromFrameCenterPercent": 0,
+      "rect": { "x": 120, "y": 904, "width": 720, "height": 112 }
+    },
+    "expertPortrait": {
+      "centerY": 1248,
+      "offsetFromFrameCenterPx": 288,
+      "offsetFromFrameCenterPercent": 15,
+      "rect": { "x": 120, "y": 1192, "width": 720, "height": 112 }
+    },
+    "expertSplitFallback": {
+      "centerY": 872,
+      "placement": "above-face-fallback-when-below-head-slot-is-not-legal",
+      "rect": { "x": 120, "y": 816, "width": 720, "height": 112 }
+    },
+    "fullGraphics": {
+      "centerY": 536,
+      "placement": "graphics-only-no-face",
+      "rect": { "x": 120, "y": 480, "width": 720, "height": 112 }
+    }
+  },
+  "faceAwarePlacement": {
+    "rule": "Track the face/head through the shot. Prefer the expertPortrait band below the head; use expertSplitFallback above the face only when the lower slot would collide with platform UI or leave insufficient clearance.",
+    "minimumFaceCaptionGapPx": 32,
+    "preferredFaceCaptionGapPx": 48
+  },
+  "acceptance": [
+    "Critical text, logos, CTA and active diagram nodes remain inside x=120..840 and y=260..1360.",
+    "Use only the matching compact 720x112 caption preset: podcast centerY=960, expert portrait centerY=1248, expert split fallback centerY=872, full graphics centerY=536.",
+    "For face shots, verify the active card clears the detected face/head by at least 32 px (48 px preferred).",
+    "No critical content intersects top navigation/profile, the right action rail or bottom caption/navigation zones.",
+    "Overlay is hidden before delivery export."
+  ]
+}

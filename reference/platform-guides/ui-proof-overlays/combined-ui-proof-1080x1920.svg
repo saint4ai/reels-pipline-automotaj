@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <style>
+      .title { font: 800 25px Arial, Helvetica, sans-serif; letter-spacing: 1.4px; }
+      .label { font: 700 19px Arial, Helvetica, sans-serif; letter-spacing: 1px; }
+      .micro { font: 700 15px Arial, Helvetica, sans-serif; letter-spacing: .8px; }
+      .line { vector-effect: non-scaling-stroke; }
+    </style>
+    <pattern id="union-hatch" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="24" height="24" fill="#C61F32" fill-opacity=".04"/>
+      <rect width="7" height="24" fill="#C61F32" fill-opacity=".13"/>
+    </pattern>
+    <filter id="union-shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="4" dy="5" stdDeviation="0" flood-color="#111214" flood-opacity=".25"/>
+    </filter>
+  </defs>
+
+  <!-- Union of Instagram Reels and TikTok UI pressure. -->
+  <rect x="0" y="0" width="1080" height="260" fill="url(#union-hatch)"/>
+  <rect x="0" y="1360" width="1080" height="560" fill="url(#union-hatch)"/>
+  <rect x="840" y="360" width="240" height="1100" rx="24" fill="#C61F32" fill-opacity=".12"
+        stroke="#C61F32" stroke-width="5" stroke-dasharray="11 9" class="line"/>
+  <rect x="0" y="0" width="120" height="1920" fill="#111214" fill-opacity=".10"/>
+
+  <rect x="120" y="260" width="720" height="1100" rx="20" fill="#C7FF00" fill-opacity=".03"
+        stroke="#C7FF00" stroke-width="7" class="line"/>
+  <line x1="120" y1="0" x2="120" y2="1920" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+  <line x1="840" y1="0" x2="840" y2="1920" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+  <line x1="0" y1="260" x2="1080" y2="260" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+  <line x1="0" y1="1360" x2="1080" y2="1360" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+
+  <!-- Face-aware compact caption presets. These are mutually exclusive layout modes. -->
+  <rect x="120" y="480" width="720" height="112" rx="16" fill="#00C2FF" fill-opacity=".09"
+        stroke="#00C2FF" stroke-width="4" stroke-dasharray="10 8" class="line"/>
+  <line x1="120" y1="536" x2="840" y2="536" stroke="#00C2FF" stroke-width="3" class="line"/>
+  <rect x="138" y="490" width="302" height="36" rx="7" fill="#00C2FF"/>
+  <text x="153" y="515" class="micro" fill="#111214">FULL GRAPHICS / Y=536</text>
+
+  <rect x="120" y="816" width="720" height="112" rx="16" fill="#FF3DBB" fill-opacity=".09"
+        stroke="#FF3DBB" stroke-width="4" stroke-dasharray="8 8" class="line"/>
+  <line x1="120" y1="872" x2="840" y2="872" stroke="#FF3DBB" stroke-width="3" class="line"/>
+  <rect x="138" y="826" width="390" height="36" rx="7" fill="#FF3DBB"/>
+  <text x="153" y="851" class="micro" fill="#111214">EXPERT SPLIT FALLBACK / Y=872</text>
+
+  <rect x="120" y="904" width="720" height="112" rx="16" fill="#FF6A00" fill-opacity=".09"
+        stroke="#FF6A00" stroke-width="4" stroke-dasharray="14 10" class="line"/>
+  <line x1="120" y1="960" x2="840" y2="960" stroke="#FF6A00" stroke-width="3" class="line"/>
+  <rect x="138" y="970" width="286" height="36" rx="7" fill="#FF6A00"/>
+  <text x="153" y="995" class="micro" fill="#111214">PODCAST / Y=960</text>
+
+  <rect x="120" y="1192" width="720" height="112" rx="16" fill="#C7FF00" fill-opacity=".09"
+        stroke="#C7FF00" stroke-width="4" stroke-dasharray="14 10" class="line"/>
+  <line x1="120" y1="1248" x2="840" y2="1248" stroke="#C7FF00" stroke-width="3" class="line"/>
+  <rect x="138" y="1202" width="330" height="36" rx="7" fill="#C7FF00"/>
+  <text x="153" y="1227" class="micro" fill="#111214">EXPERT PORTRAIT / Y=1248</text>
+
+  <!-- Ghosted top interfaces: Instagram pink, TikTok cyan. -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" class="line">
+    <g stroke="#E1306C" stroke-width="7">
+      <path d="M64 76 L38 102 L64 128"/>
+      <circle cx="116" cy="102" r="32"/>
+      <line x1="166" y1="90" x2="360" y2="90"/>
+      <line x1="166" y1="120" x2="304" y2="120" stroke-width="4"/>
+      <rect x="956" y="68" width="68" height="68" rx="17"/>
+    </g>
+    <g stroke="#25F4EE" stroke-width="6">
+      <line x1="324" y1="184" x2="436" y2="184"/>
+      <line x1="548" y1="184" x2="660" y2="184"/>
+      <line x1="542" y1="214" x2="666" y2="214" stroke="#FE2C55"/>
+      <circle cx="988" cy="188" r="24"/>
+      <line x1="1006" y1="206" x2="1028" y2="228"/>
+    </g>
+  </g>
+  <text x="42" y="244" class="label" fill="#FFFFFF">UNION TOP NAV / PROFILE / SEARCH</text>
+
+  <!-- Union right rail: every common control is represented. -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" class="line">
+    <circle cx="960" cy="490" r="45"/>
+    <line x1="940" y1="548" x2="980" y2="548" stroke="#FE2C55" stroke-width="11"/>
+    <line x1="960" y1="528" x2="960" y2="568" stroke="#FE2C55" stroke-width="11"/>
+    <path d="M960 620 C920 584 870 638 902 680 L960 736 L1018 680 C1050 638 1000 584 960 620 Z"/>
+    <path d="M905 775 C905 740 930 718 960 718 C990 718 1015 740 1015 775 C1015 810 990 832 960 832 L932 855 L938 824 C918 815 905 797 905 775 Z"/>
+    <path d="M925 886 L995 886 L995 986 L960 964 L925 986 Z"/>
+    <path d="M900 1060 L1020 1014 L980 1134 L950 1084 Z"/>
+    <line x1="950" y1="1084" x2="1020" y2="1014"/>
+    <circle cx="920" cy="1220" r="7" fill="#FFFFFF"/>
+    <circle cx="960" cy="1220" r="7" fill="#FFFFFF"/>
+    <circle cx="1000" cy="1220" r="7" fill="#FFFFFF"/>
+  </g>
+  <text x="858" y="398" class="micro" fill="#FFFFFF">PROFILE / HEART</text>
+  <text x="858" y="423" class="micro" fill="#FFFFFF">COMMENT / SAVE</text>
+  <text x="858" y="448" class="micro" fill="#FFFFFF">SEND / SHARE</text>
+
+  <!-- Union bottom UI. -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" class="line">
+    <circle cx="82" cy="1460" r="34" stroke="#E1306C"/>
+    <line x1="136" y1="1446" x2="400" y2="1446"/>
+    <line x1="136" y1="1480" x2="318" y2="1480" stroke-width="4"/>
+    <line x1="44" y1="1540" x2="714" y2="1540" stroke-width="5"/>
+    <line x1="44" y1="1578" x2="594" y2="1578" stroke-width="5"/>
+    <line x1="44" y1="1616" x2="458" y2="1616" stroke-width="5"/>
+    <circle cx="74" cy="1692" r="18" stroke="#25F4EE"/>
+    <line x1="112" y1="1692" x2="548" y2="1692" stroke-width="5"/>
+    <line x1="40" y1="1804" x2="1040" y2="1804" stroke-width="4"/>
+    <path d="M98 1862 L128 1840 L158 1862 L158 1898 L98 1898 Z"/>
+    <rect x="390" y="1840" width="62" height="58" rx="12"/>
+    <rect x="512" y="1836" width="80" height="66" rx="16" stroke="#25F4EE"/>
+    <line x1="552" y1="1850" x2="552" y2="1888"/>
+    <line x1="532" y1="1869" x2="572" y2="1869"/>
+    <circle cx="760" cy="1870" r="29"/>
+    <rect x="934" y="1840" width="60" height="58" rx="16"/>
+  </g>
+  <text x="42" y="1408" class="label" fill="#FFFFFF">UNION BOTTOM PROFILE / CAPTION / MUSIC / CTA / NAV</text>
+
+  <g>
+    <rect x="138" y="286" width="500" height="48" rx="9" fill="#C7FF00"/>
+    <text x="158" y="318" fill="#111214" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" letter-spacing="1.4">SAFE X 120-840 / Y 260-1360</text>
+    <rect x="42" y="1732" width="780" height="48" rx="9" fill="#111214"/>
+    <text x="62" y="1764" class="label" fill="#FFFFFF">IG + TIKTOK UNION PROOF · QA ONLY · DO NOT EXPORT</text>
+  </g>
+</svg>

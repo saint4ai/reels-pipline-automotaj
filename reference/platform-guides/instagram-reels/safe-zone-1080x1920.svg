@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <style>
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1.4px; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.9px; }
+      .outline { vector-effect: non-scaling-stroke; }
+    </style>
+    <pattern id="warning-hatch" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="20" height="20" fill="rgba(198,31,50,0.035)"/>
+      <rect width="6" height="20" fill="rgba(198,31,50,0.08)"/>
+    </pattern>
+    <filter id="chip-shadow" x="-20%" y="-40%" width="140%" height="180%">
+      <feDropShadow dx="4" dy="5" stdDeviation="0" flood-color="#111214" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Meta's published Reels-ad clear margins: 14% top, 35% bottom, 6% each side. -->
+  <rect x="0" y="0" width="1080" height="269" fill="url(#warning-hatch)"/>
+  <rect x="0" y="1248" width="1080" height="672" fill="url(#warning-hatch)"/>
+  <rect x="0" y="269" width="65" height="979" fill="rgba(255,106,0,0.10)"/>
+  <rect x="1015" y="269" width="65" height="979" fill="rgba(255,106,0,0.10)"/>
+  <rect x="65" y="269" width="950" height="979" fill="none" stroke="#FF6A00" stroke-width="3" stroke-dasharray="14 11" class="outline"/>
+
+  <!-- Measured cover crop from the supplied 591x1280 published-Reel screenshot. -->
+  <rect x="0" y="0" width="98" height="1920" fill="rgba(17,18,20,0.075)"/>
+  <rect x="982" y="0" width="98" height="1920" fill="rgba(17,18,20,0.075)"/>
+  <line x1="98" y1="0" x2="98" y2="1920" stroke="#FFFFFF" stroke-width="5" stroke-dasharray="20 14" class="outline"/>
+  <line x1="982" y1="0" x2="982" y2="1920" stroke="#FFFFFF" stroke-width="5" stroke-dasharray="20 14" class="outline"/>
+  <line x1="98" y1="0" x2="98" y2="1920" stroke="#111214" stroke-width="2" stroke-dasharray="20 14" class="outline"/>
+  <line x1="982" y1="0" x2="982" y2="1920" stroke="#111214" stroke-width="2" stroke-dasharray="20 14" class="outline"/>
+
+  <!-- Observed right action rail: asymmetric reserve for like/comment/share controls. -->
+  <rect x="864" y="360" width="216" height="1160" rx="18" fill="rgba(198,31,50,0.075)" stroke="#C61F32" stroke-width="3" stroke-dasharray="9 9" class="outline"/>
+
+  <!-- ONai working zones. -->
+  <rect x="100" y="180" width="880" height="1320" rx="22" fill="none" stroke="#5F6265" stroke-width="3" stroke-dasharray="6 10" class="outline"/>
+  <rect x="108" y="269" width="756" height="979" rx="20" fill="rgba(199,255,0,0.025)" stroke="#C7FF00" stroke-width="5" class="outline"/>
+  <rect x="120" y="880" width="744" height="160" rx="16" fill="rgba(255,106,0,0.055)" stroke="#FF6A00" stroke-width="4" class="outline"/>
+  <line x1="100" y1="960" x2="980" y2="960" stroke="#FF6A00" stroke-width="2" stroke-dasharray="12 10" class="outline"/>
+
+  <!-- Compact labels are part of the QA overlay only. -->
+  <g filter="url(#chip-shadow)">
+    <rect x="112" y="286" width="340" height="42" rx="8" fill="#C7FF00"/>
+    <text x="130" y="314" class="label" fill="#111214">CRITICAL CONTENT</text>
+  </g>
+  <g filter="url(#chip-shadow)">
+    <rect x="132" y="892" width="270" height="38" rx="8" fill="#FF6A00"/>
+    <text x="149" y="918" class="small" fill="#111214">CAPTIONS · Y=960</text>
+  </g>
+  <g filter="url(#chip-shadow)">
+    <rect x="751" y="378" width="304" height="38" rx="8" fill="#C61F32"/>
+    <text x="769" y="404" class="small" fill="#FFFFFF">REELS ACTION RAIL</text>
+  </g>
+  <g filter="url(#chip-shadow)">
+    <rect x="118" y="1830" width="666" height="46" rx="8" fill="#111214"/>
+    <text x="138" y="1861" class="small" fill="#FFFFFF">QA ONLY · HIDE BEFORE FINAL EXPORT</text>
+  </g>
+</svg>

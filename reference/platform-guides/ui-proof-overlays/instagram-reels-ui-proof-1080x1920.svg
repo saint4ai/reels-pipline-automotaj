@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <style>
+      .title { font: 800 25px Arial, Helvetica, sans-serif; letter-spacing: 1.4px; }
+      .label { font: 700 19px Arial, Helvetica, sans-serif; letter-spacing: 1px; }
+      .micro { font: 700 15px Arial, Helvetica, sans-serif; letter-spacing: .8px; }
+      .line { vector-effect: non-scaling-stroke; }
+    </style>
+    <pattern id="ig-hatch" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="24" height="24" fill="#E1306C" fill-opacity=".04"/>
+      <rect width="7" height="24" fill="#E1306C" fill-opacity=".12"/>
+    </pattern>
+    <filter id="ig-shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="4" dy="5" stdDeviation="0" flood-color="#111214" flood-opacity=".25"/>
+    </filter>
+  </defs>
+
+  <!-- UI pressure regions. Review only; never export. -->
+  <rect x="0" y="0" width="1080" height="260" fill="url(#ig-hatch)"/>
+  <rect x="0" y="1360" width="1080" height="560" fill="url(#ig-hatch)"/>
+  <rect x="840" y="360" width="240" height="1100" rx="24" fill="#E1306C" fill-opacity=".12"
+        stroke="#E1306C" stroke-width="4" stroke-dasharray="11 9" class="line"/>
+  <rect x="0" y="0" width="120" height="1920" fill="#111214" fill-opacity=".08"/>
+
+  <!-- ONai cross-platform safe rectangle. -->
+  <rect x="120" y="260" width="720" height="1100" rx="20" fill="#C7FF00" fill-opacity=".025"
+        stroke="#C7FF00" stroke-width="6" class="line"/>
+  <line x1="120" y1="0" x2="120" y2="1920" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+  <line x1="840" y1="0" x2="840" y2="1920" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+  <line x1="0" y1="260" x2="1080" y2="260" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+  <line x1="0" y1="1360" x2="1080" y2="1360" stroke="#C7FF00" stroke-width="3" stroke-dasharray="18 12" class="line"/>
+
+  <!-- Face-aware compact caption presets. These are mutually exclusive layout modes. -->
+  <rect x="120" y="480" width="720" height="112" rx="16" fill="#00C2FF" fill-opacity=".09"
+        stroke="#00C2FF" stroke-width="4" stroke-dasharray="10 8" class="line"/>
+  <line x1="120" y1="536" x2="840" y2="536" stroke="#00C2FF" stroke-width="3" class="line"/>
+  <rect x="138" y="490" width="302" height="36" rx="7" fill="#00C2FF"/>
+  <text x="153" y="515" class="micro" fill="#111214">FULL GRAPHICS / Y=536</text>
+
+  <rect x="120" y="816" width="720" height="112" rx="16" fill="#FF3DBB" fill-opacity=".09"
+        stroke="#FF3DBB" stroke-width="4" stroke-dasharray="8 8" class="line"/>
+  <line x1="120" y1="872" x2="840" y2="872" stroke="#FF3DBB" stroke-width="3" class="line"/>
+  <rect x="138" y="826" width="390" height="36" rx="7" fill="#FF3DBB"/>
+  <text x="153" y="851" class="micro" fill="#111214">EXPERT SPLIT FALLBACK / Y=872</text>
+
+  <rect x="120" y="904" width="720" height="112" rx="16" fill="#FF6A00" fill-opacity=".09"
+        stroke="#FF6A00" stroke-width="4" stroke-dasharray="14 10" class="line"/>
+  <line x1="120" y1="960" x2="840" y2="960" stroke="#FF6A00" stroke-width="3" class="line"/>
+  <rect x="138" y="970" width="286" height="36" rx="7" fill="#FF6A00"/>
+  <text x="153" y="995" class="micro" fill="#111214">PODCAST / Y=960</text>
+
+  <rect x="120" y="1192" width="720" height="112" rx="16" fill="#C7FF00" fill-opacity=".09"
+        stroke="#C7FF00" stroke-width="4" stroke-dasharray="14 10" class="line"/>
+  <line x1="120" y1="1248" x2="840" y2="1248" stroke="#C7FF00" stroke-width="3" class="line"/>
+  <rect x="138" y="1202" width="330" height="36" rx="7" fill="#C7FF00"/>
+  <text x="153" y="1227" class="micro" fill="#111214">EXPERT PORTRAIT / Y=1248</text>
+
+  <!-- Representative Instagram top navigation/profile pressure. -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" class="line">
+    <path d="M64 82 L38 108 L64 134"/>
+    <circle cx="116" cy="108" r="34"/>
+    <line x1="166" y1="96" x2="390" y2="96"/>
+    <line x1="166" y1="126" x2="318" y2="126" stroke-width="4"/>
+    <rect x="950" y="72" width="72" height="72" rx="18"/>
+    <circle cx="986" cy="108" r="17"/>
+  </g>
+  <text x="42" y="220" class="label" fill="#FFFFFF">TOP NAV / PROFILE PRESSURE</text>
+
+  <!-- Representative Instagram action rail. -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" class="line">
+    <path d="M960 614 C920 578 870 632 902 674 L960 730 L1018 674 C1050 632 1000 578 960 614 Z"/>
+    <path d="M905 765 C905 730 930 708 960 708 C990 708 1015 730 1015 765 C1015 800 990 822 960 822 L932 845 L938 814 C918 805 905 787 905 765 Z"/>
+    <path d="M900 914 L1020 868 L980 988 L950 938 Z"/>
+    <line x1="950" y1="938" x2="1020" y2="868"/>
+    <circle cx="920" cy="1080" r="7" fill="#FFFFFF"/>
+    <circle cx="960" cy="1080" r="7" fill="#FFFFFF"/>
+    <circle cx="1000" cy="1080" r="7" fill="#FFFFFF"/>
+  </g>
+  <text x="864" y="430" class="micro" fill="#FFFFFF">HEART</text>
+  <text x="864" y="455" class="micro" fill="#FFFFFF">COMMENT</text>
+  <text x="864" y="480" class="micro" fill="#FFFFFF">SHARE</text>
+
+  <!-- Representative lower profile/caption/nav pressure. -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" class="line">
+    <circle cx="88" cy="1480" r="38"/>
+    <line x1="148" y1="1462" x2="430" y2="1462"/>
+    <line x1="148" y1="1495" x2="326" y2="1495" stroke-width="4"/>
+    <line x1="44" y1="1564" x2="708" y2="1564" stroke-width="5"/>
+    <line x1="44" y1="1602" x2="594" y2="1602" stroke-width="5"/>
+    <line x1="44" y1="1640" x2="450" y2="1640" stroke-width="5"/>
+    <circle cx="78" cy="1712" r="18"/>
+    <line x1="112" y1="1712" x2="512" y2="1712" stroke-width="5"/>
+    <line x1="40" y1="1810" x2="1040" y2="1810" stroke-width="4"/>
+    <path d="M112 1865 L142 1840 L172 1865 L172 1898 L112 1898 Z"/>
+    <rect x="390" y="1840" width="62" height="58" rx="12"/>
+    <circle cx="720" cy="1868" r="29"/>
+    <rect x="934" y="1840" width="60" height="58" rx="16"/>
+  </g>
+  <text x="42" y="1410" class="label" fill="#FFFFFF">BOTTOM PROFILE / CAPTION / NAV</text>
+
+  <!-- QA chips. -->
+  <g>
+    <rect x="138" y="286" width="500" height="48" rx="9" fill="#C7FF00"/>
+    <text x="158" y="318" fill="#111214" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" letter-spacing="1.4">SAFE X 120-840 / Y 260-1360</text>
+    <rect x="42" y="1740" width="730" height="48" rx="9" fill="#111214"/>
+    <text x="62" y="1772" class="label" fill="#FFFFFF">INSTAGRAM UI PROOF · QA ONLY · DO NOT EXPORT</text>
+  </g>
+</svg>
