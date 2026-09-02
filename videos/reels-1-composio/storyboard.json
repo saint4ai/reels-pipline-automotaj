@@ -1,0 +1,908 @@
+{
+  "schemaVersion": 7,
+  "projectId": "reels-1-composio",
+  "composition": {
+    "id": "reels-1-composio",
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 51.15
+  },
+  "theme": {
+    "paper": "#F7F6F2",
+    "paperMid": "#E5E4E2",
+    "paperLo": "#C8C6C1",
+    "ink": "#111214",
+    "lime": "#B6FF00",
+    "orange": "#FC5C02",
+    "grey": "#6E6E6E",
+    "gridPitch": 64,
+    "gridOpacity": 0.06
+  },
+  "mask": {
+    "file": "Downloads/Рилс 1/photo_2026-09-02_21-10-26.jpg",
+    "safe": {
+      "x": 52,
+      "y": 222,
+      "w": 940,
+      "h": 1323
+    }
+  },
+  "sources": {
+    "speaker": {
+      "file": "media/speaker-gop30.mp4",
+      "native": "720x1280",
+      "in": 0.0,
+      "out": 51.15
+    },
+    "speech": {
+      "file": "media/speech.m4a"
+    },
+    "footage": {
+      "file": "assets/Рилс.mp4",
+      "native": "3840x2158, 8.87 с, с авторскими зумами",
+      "cut": "media/settings-full-gop30.mp4 — весь кадр, скорость 1.5×, без кропа"
+    },
+    "chat": {
+      "file": "assets/chat-connect.mp4",
+      "native": "1844x1080, 9.4 с",
+      "cut": "media/chat-full-gop30.mp4 — 2.5–8.62 с, весь кадр"
+    },
+    "cta": {
+      "file": "assets/IMG_7399.MP4",
+      "cuts": "media/cta-gop30.mp4"
+    }
+  },
+  "speakerWindow": {
+    "cornerRadius": 0,
+    "invariant": {
+      "bottomEdgeY": 1920
+    },
+    "constraint": {
+      "sourceNative": "720x1280",
+      "maxUpscale": 1.5,
+      "why": "Александр 03.09: основная позиция — вся нижняя половина"
+    },
+    "states": {
+      "H": {
+        "x": 0,
+        "y": 960,
+        "w": 1080,
+        "h": 960,
+        "border": 0,
+        "pos": "50% 67%",
+        "captionY": 868
+      },
+      "T": {
+        "x": 120,
+        "y": 560,
+        "w": 744,
+        "h": 620,
+        "border": 3,
+        "pos": "50% 54%",
+        "captionY": 1272
+      }
+    },
+    "initial": "T",
+    "moves": [
+      {
+        "at": 3.06,
+        "to": "H"
+      },
+      {
+        "at": 12.42,
+        "to": "T",
+        "why": "список закрыт; пауза спикера до «Сейчас покажу»"
+      },
+      {
+        "at": 19.32,
+        "to": "H"
+      },
+      {
+        "at": 25.22,
+        "to": "T"
+      },
+      {
+        "at": 27.42,
+        "to": "H"
+      },
+      {
+        "at": 33.54,
+        "to": "T"
+      },
+      {
+        "at": 36.62,
+        "to": "H"
+      },
+      {
+        "at": 44.22,
+        "to": "T"
+      },
+      {
+        "at": 46.5,
+        "to": "H"
+      }
+    ]
+  },
+  "captions": {
+    "preset": "podcast",
+    "lane": {
+      "x": 60,
+      "y": 900,
+      "w": 770,
+      "h": 120,
+      "centerY": 960
+    },
+    "baseFont": "Gilroy",
+    "size": 66,
+    "wordsPerGroup": 3,
+    "uppercase": false,
+    "editorialFont": "STIX Two Text Italic",
+    "emphasis": [
+      {
+        "word": "20",
+        "color": "orange"
+      },
+      {
+        "word": "Composio",
+        "color": "lime"
+      },
+      {
+        "word": "готово",
+        "color": "lime"
+      },
+      {
+        "word": "бесплатной",
+        "color": "lime"
+      },
+      {
+        "word": "вайбкодинге",
+        "color": "lime"
+      },
+      {
+        "word": "Instagram",
+        "color": "lime"
+      },
+      {
+        "word": "аналитику",
+        "color": "orange"
+      },
+      {
+        "word": "клиентам",
+        "color": "lime"
+      },
+      {
+        "word": "настройки",
+        "color": "orange"
+      },
+      {
+        "word": "ссылку",
+        "color": "orange"
+      },
+      {
+        "word": "авторизовались",
+        "color": "lime"
+      },
+      {
+        "word": "одновременно",
+        "color": "lime"
+      },
+      {
+        "word": "био",
+        "color": "lime"
+      }
+    ]
+  },
+  "clips": [
+    {
+      "id": "set",
+      "file": "media/settings-full-gop30.mp4",
+      "at": 19.32,
+      "dur": 5.9,
+      "box": {
+        "x": 99,
+        "y": 213,
+        "w": 882,
+        "h": 496
+      },
+      "fit": "contain",
+      "enter": "cut"
+    },
+    {
+      "id": "chat",
+      "file": "media/chat-full-gop30.mp4",
+      "at": 27.42,
+      "dur": 6.12,
+      "box": {
+        "x": 99,
+        "y": 213,
+        "w": 882,
+        "h": 517
+      },
+      "fit": "contain",
+      "enter": "cut"
+    },
+    {
+      "id": "cta",
+      "file": "media/cta-gop30.mp4",
+      "at": 46.5,
+      "dur": 4.65,
+      "box": {
+        "x": 341,
+        "y": 213,
+        "w": 397,
+        "h": 554
+      },
+      "fit": "contain",
+      "enter": "cut"
+    }
+  ],
+  "custom": {
+    "html": "parts/scenes.html",
+    "css": "parts/scenes.css",
+    "js": "parts/scenes.js"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "from": 0.0,
+      "to": 3.06,
+      "kind": "kinetic",
+      "zone": {
+        "x": 96,
+        "y": 96,
+        "w": 888,
+        "h": 440
+      },
+      "stack": [
+        {
+          "at": 0.0,
+          "word": "Как",
+          "text": "КАК ПОДКЛЮЧИТЬ",
+          "role": "light"
+        },
+        {
+          "at": 1.28,
+          "word": "нейросеть",
+          "text": "НЕЙРОСЕТЬ",
+          "role": "heavy"
+        },
+        {
+          "at": 1.74,
+          "word": "Клод",
+          "text": "CLAUDE",
+          "role": "accent",
+          "color": "lime",
+          "sticker": "assets/brand/claude.svg"
+        },
+        {
+          "at": 2.56,
+          "word": "Instagram",
+          "text": "К INSTAGRAM",
+          "role": "heavy",
+          "icon": "assets/brand/instagram.svg"
+        }
+      ],
+      "kicker": "CLAUDE × INSTAGRAM",
+      "tint": "lime"
+    },
+    {
+      "id": "actions",
+      "from": 3.06,
+      "to": 12.42,
+      "kind": "card",
+      "eyebrow": "01 / ЧТО УМЕЕТ",
+      "headline": "^^6^^ ДЕЙСТВИЙ",
+      "list": [
+        {
+          "at": 3.54,
+          "word": "отвечать",
+          "icon": "send",
+          "text": "ОТВЕЧАТЬ НА СООБЩЕНИЯ"
+        },
+        {
+          "at": 4.78,
+          "word": "комментарии",
+          "icon": "message-circle",
+          "text": "КОММЕНТАРИИ"
+        },
+        {
+          "at": 5.6,
+          "word": "опубликовывать",
+          "icon": "message-square",
+          "text": "ПУБЛИКОВАТЬ КОНТЕНТ"
+        },
+        {
+          "at": 7.76,
+          "word": "аналитику",
+          "icon": "chart",
+          "text": "СКВОЗНАЯ АНАЛИТИКА"
+        },
+        {
+          "at": 10.32,
+          "word": "целевая",
+          "icon": "target",
+          "text": "ЦЕЛЕВАЯ АУДИТОРИЯ"
+        },
+        {
+          "at": 11.98,
+          "word": "продавать",
+          "icon": "cart",
+          "text": "ПРОДАЖИ КЛИЕНТАМ"
+        }
+      ],
+      "zone": {
+        "x": 96,
+        "y": 96,
+        "w": 888,
+        "h": 688
+      },
+      "objects": [
+        {
+          "kind": "note",
+          "at": 12.42,
+          "word": "вашим",
+          "text": "делает Claude",
+          "box": {
+            "x": 560,
+            "y": 52,
+            "w": 300,
+            "h": 56
+          }
+        }
+      ],
+      "tint": "orange"
+    },
+    {
+      "id": "promise",
+      "from": 13.38,
+      "to": 16.06,
+      "kind": "kinetic",
+      "zone": {
+        "x": 96,
+        "y": 96,
+        "w": 888,
+        "h": 440
+      },
+      "stack": [
+        {
+          "at": 13.38,
+          "word": "Сейчас",
+          "text": "СЕЙЧАС ПОКАЖУ",
+          "role": "heavy"
+        },
+        {
+          "at": 14.94,
+          "word": "за",
+          "text": "ЗА",
+          "role": "light"
+        },
+        {
+          "at": 15.12,
+          "word": "20",
+          "text": "20",
+          "role": "number"
+        },
+        {
+          "at": 15.38,
+          "word": "секунд",
+          "text": "СЕКУНД",
+          "role": "heavy"
+        }
+      ],
+      "objects": [
+        {
+          "kind": "clock",
+          "at": 15.12,
+          "until": 16.06,
+          "box": {
+            "x": 620,
+            "y": 170,
+            "w": 240,
+            "h": 240
+          }
+        }
+      ],
+      "tint": "lime"
+    },
+    {
+      "id": "connector",
+      "from": 16.06,
+      "to": 19.32,
+      "kind": "card",
+      "eyebrow": "02 / КОННЕКТОР",
+      "headline": "COMPOSIO",
+      "subline": {
+        "at": 16.46,
+        "text": "коннектор между Claude и Instagram"
+      },
+      "objects": [
+        {
+          "kind": "socket",
+          "at": 16.06,
+          "composioAt": 17.84,
+          "word": "коннектор",
+          "box": {
+            "x": 40,
+            "y": 380,
+            "w": 808,
+            "h": 120
+          }
+        },
+        {
+          "kind": "note",
+          "at": 18.3,
+          "word": "Composio",
+          "text": "один коннектор — обе стороны",
+          "box": {
+            "x": 60,
+            "y": 500,
+            "w": 700,
+            "h": 56
+          }
+        }
+      ],
+      "zone": {
+        "x": 96,
+        "y": 250,
+        "w": 888,
+        "h": 600
+      },
+      "fullscreen": true,
+      "captionY": 1290,
+      "tint": "lime"
+    },
+    {
+      "id": "settings",
+      "from": 19.32,
+      "to": 25.22,
+      "kind": "screen",
+      "screen": {
+        "x": 96,
+        "y": 170,
+        "w": 888,
+        "h": 545,
+        "bar": "claude.ai/settings/connectors"
+      },
+      "labels": [
+        {
+          "at": 19.32,
+          "word": "Заходим",
+          "text": "ЗАХОДИМ В НАСТРОЙКИ"
+        },
+        {
+          "at": 20.6,
+          "word": "добавить",
+          "text": "ДОБАВИТЬ КОННЕКТОР"
+        },
+        {
+          "at": 22.16,
+          "word": "Custom",
+          "text": "CUSTOM CONNECTOR",
+          "color": "orange",
+          "icon": "assets/brand/composio-label.svg"
+        },
+        {
+          "at": 23.56,
+          "word": "вставляем",
+          "text": "ВСТАВЛЯЕМ ССЫЛКУ"
+        }
+      ],
+      "objects": [
+        {
+          "kind": "arrow",
+          "at": 24.14,
+          "word": "вот",
+          "until": 24.6,
+          "from": {
+            "x": 520,
+            "y": 165
+          },
+          "to": {
+            "x": 640,
+            "y": 512
+          }
+        },
+        {
+          "kind": "highlight",
+          "at": 24.14,
+          "until": 24.6,
+          "box": {
+            "x": 474,
+            "y": 518,
+            "w": 462,
+            "h": 44
+          },
+          "color": "orange"
+        }
+      ],
+      "tint": "blue"
+    },
+    {
+      "id": "chatlead",
+      "from": 25.22,
+      "to": 27.42,
+      "kind": "kinetic",
+      "zone": {
+        "x": 96,
+        "y": 96,
+        "w": 888,
+        "h": 440
+      },
+      "tint": "blue",
+      "stack": [
+        {
+          "at": 25.22,
+          "word": "Затем",
+          "text": "НОВЫЙ ЧАТ",
+          "role": "heavy",
+          "icon": "assets/brand/claude-label.svg"
+        },
+        {
+          "at": 26.42,
+          "word": "чат",
+          "text": "С CLAUDE",
+          "role": "accent",
+          "color": "lime"
+        }
+      ]
+    },
+    {
+      "id": "chat",
+      "from": 27.42,
+      "to": 33.54,
+      "kind": "screen",
+      "screen": {
+        "x": 96,
+        "y": 170,
+        "w": 888,
+        "h": 566,
+        "bar": "claude.ai/new"
+      },
+      "labels": [
+        {
+          "at": 27.42,
+          "word": "Пишем",
+          "text": "ПИШЕМ КЛОДУ"
+        },
+        {
+          "at": 29.66,
+          "word": "кидает",
+          "text": "КИДАЕТ ССЫЛКУ"
+        },
+        {
+          "at": 31.56,
+          "word": "авторизовались",
+          "text": "АВТОРИЗОВАЛИСЬ"
+        }
+      ],
+      "objects": [
+        {
+          "kind": "stamp",
+          "at": 33.0,
+          "word": "готово",
+          "text": "ГОТОВО",
+          "color": "lime",
+          "box": {
+            "x": 430,
+            "y": 520,
+            "w": 440,
+            "h": 150
+          },
+          "rotate": -6
+        }
+      ],
+      "tint": "blue"
+    },
+    {
+      "id": "features",
+      "from": 33.7,
+      "to": 36.62,
+      "kind": "kinetic",
+      "zone": {
+        "x": 96,
+        "y": 96,
+        "w": 888,
+        "h": 440
+      },
+      "stack": [
+        {
+          "at": 33.7,
+          "word": "Кстати",
+          "text": "КСТАТИ",
+          "role": "light"
+        },
+        {
+          "at": 34.36,
+          "word": "коннекторе",
+          "text": "В ЭТОМ КОННЕКТОРЕ",
+          "role": "heavy"
+        },
+        {
+          "at": 34.92,
+          "word": "дофига",
+          "text": "ДОФИГА ФИШЕК",
+          "role": "accent",
+          "color": "lime",
+          "sticker": "assets/brand/claude.svg"
+        }
+      ],
+      "tint": "orange"
+    },
+    {
+      "id": "publish",
+      "from": 36.62,
+      "to": 41.28,
+      "kind": "card",
+      "eyebrow": "03 / ПУБЛИКАЦИИ",
+      "headline": "ОДНОВРЕМЕННО",
+      "chips": [
+        {
+          "at": 38.52,
+          "word": "TikTok",
+          "icon": "assets/brand/tiktok.svg",
+          "text": "TikTok"
+        },
+        {
+          "at": 39.5,
+          "word": "Instagram",
+          "icon": "assets/brand/instagram-chip.svg",
+          "text": "Instagram"
+        },
+        {
+          "at": 40.48,
+          "word": "Reels",
+          "icon": "assets/brand/instagram-reels.svg",
+          "text": "Reels"
+        }
+      ],
+      "zone": {
+        "x": 96,
+        "y": 150,
+        "w": 888,
+        "h": 470
+      },
+      "objects": [
+        {
+          "kind": "note",
+          "at": 40.8,
+          "word": "Reels",
+          "text": "три площадки разом",
+          "box": {
+            "x": 60,
+            "y": 370,
+            "w": 500,
+            "h": 56
+          }
+        }
+      ],
+      "tint": "lime"
+    },
+    {
+      "id": "analytics",
+      "from": 41.28,
+      "to": 44.22,
+      "kind": "card",
+      "eyebrow": "04 / АНАЛИТИКА",
+      "headline": "АНАЛИЗИРУЮ **ДАННЫЕ**",
+      "objects": [
+        {
+          "kind": "chart",
+          "at": 41.88,
+          "word": "данные",
+          "box": {
+            "x": 40,
+            "y": 260,
+            "w": 460,
+            "h": 300
+          },
+          "bars": [
+            0.35,
+            0.55,
+            0.45,
+            0.8,
+            1.0
+          ]
+        },
+        {
+          "kind": "bubble",
+          "at": 42.96,
+          "word": "отвечаю",
+          "text": "отвечаю на сообщения",
+          "box": {
+            "x": 505,
+            "y": 150,
+            "w": 355,
+            "h": 110
+          }
+        }
+      ],
+      "zone": {
+        "x": 96,
+        "y": 120,
+        "w": 888,
+        "h": 580
+      },
+      "tint": "orange"
+    },
+    {
+      "id": "free",
+      "from": 44.22,
+      "to": 46.5,
+      "kind": "kinetic",
+      "zone": {
+        "x": 96,
+        "y": 96,
+        "w": 888,
+        "h": 440
+      },
+      "stack": [
+        {
+          "at": 44.42,
+          "word": "все",
+          "text": "ВСЁ ЭТО",
+          "role": "light"
+        },
+        {
+          "at": 45.0,
+          "word": "одной",
+          "text": "В ОДНОЙ",
+          "role": "light"
+        },
+        {
+          "at": 45.86,
+          "word": "интеграции",
+          "text": "ИНТЕГРАЦИИ",
+          "role": "heavy"
+        }
+      ],
+      "objects": [
+        {
+          "kind": "stamp",
+          "at": 45.2,
+          "word": "бесплатной",
+          "text": "БЕСПЛАТНО",
+          "color": "lime",
+          "box": {
+            "x": 60,
+            "y": 250,
+            "w": 640,
+            "h": 170
+          },
+          "rotate": -5
+        }
+      ],
+      "tint": "lime"
+    },
+    {
+      "id": "cta",
+      "from": 46.5,
+      "to": 51.15,
+      "kind": "screen",
+      "objects": [
+        {
+          "kind": "highlight",
+          "at": 49.6,
+          "box": {
+            "x": 352,
+            "y": 577,
+            "w": 376,
+            "h": 78
+          },
+          "color": "lime"
+        }
+      ],
+      "screen": {
+        "x": 96,
+        "y": 170,
+        "w": 888,
+        "h": 600,
+        "bar": "instagram.com/saint4ai"
+      },
+      "labels": [
+        {
+          "at": 46.5,
+          "text": "ЗАХОДИ В БИО",
+          "icon": "assets/brand/instagram-label.svg"
+        },
+        {
+          "at": 49.18,
+          "word": "вайбкодинге",
+          "text": "БЛОГ ПРО ВАЙБКОДИНГ →",
+          "color": "lime"
+        }
+      ],
+      "tint": "lime"
+    }
+  ],
+  "transitions": [
+    {
+      "at": 19.32,
+      "window": "glare-core",
+      "frames": 6,
+      "opacity": 0.62,
+      "boundary": "обещание → интерфейс"
+    },
+    {
+      "at": 36.62,
+      "window": "k4-dark-diagonal-wipe",
+      "frames": 6,
+      "opacity": 0.66,
+      "boundary": "готово → фишки"
+    },
+    {
+      "at": 46.5,
+      "window": "c4-dark-rainbow-blur",
+      "frames": 5,
+      "opacity": 0.6,
+      "boundary": "→ CTA"
+    }
+  ],
+  "audio": {
+    "type": "click",
+    "hits": [
+      {
+        "at": 17.84,
+        "file": "assets/sfx/click.wav",
+        "volume": 0.55,
+        "dur": 0.1,
+        "on": "Composio в разъём"
+      },
+      {
+        "at": 33.0,
+        "file": "assets/sfx/click.wav",
+        "volume": 0.6,
+        "dur": 0.1,
+        "on": "штамп ГОТОВО"
+      },
+      {
+        "at": 44.22,
+        "file": "assets/sfx/whoosh.wav",
+        "volume": 0.12,
+        "dur": 0.42,
+        "on": "маркер → БЕСПЛАТНО"
+      }
+    ]
+  },
+  "motion": [
+    {
+      "kind": "staysInFrame",
+      "selector": "#spk"
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#sc-hook",
+      "bySec": 0.5
+    },
+    {
+      "kind": "before",
+      "a": "#sc-hook",
+      "b": "#sc-actions"
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#sc-actions",
+      "bySec": 3.6
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#sc-settings",
+      "bySec": 19.9
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#sc-publish",
+      "bySec": 37.2
+    }
+  ],
+  "markers": [
+    {
+      "at": 27.42,
+      "why": "кинетика → экран чата"
+    },
+    {
+      "at": 44.22,
+      "why": "аналитика → БЕСПЛАТНО"
+    }
+  ]
+}

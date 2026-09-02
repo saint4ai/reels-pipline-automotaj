@@ -1,0 +1,90 @@
+@font-face{font-family:"IBM Plex Mono";font-weight:700;src:url("assets/fonts/ibm-plex-mono-cyrillic-700-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:700;src:url("assets/fonts/ibm-plex-mono-latin-700-normal.woff2") format("woff2")}
+#scenes{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:3;pointer-events:none}
+#overlay{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:6;pointer-events:none}
+#arrow-svg{position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:7;pointer-events:none}
+#arrow-path{fill:none;stroke:var(--orange);stroke-width:8;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+#arrow-head{fill:var(--orange);stroke:none;opacity:0}
+.scene{position:absolute;left:96px;top:96px;width:888px;height:764px}
+.scene-card{position:absolute;inset:0;background:rgba(247,246,242,.86);border:3px solid var(--ink);border-radius:0;
+            box-shadow:14px 14px 0 rgba(17,18,20,.12);padding:38px 42px;overflow:hidden}
+.eyebrow{font:700 18px/1.2 "IBM Plex Mono",monospace;letter-spacing:.13em;text-transform:uppercase;color:#676a6d}
+.eyebrow::before{content:"";display:inline-block;width:10px;height:10px;margin-right:12px;background:var(--lime);border:2px solid var(--ink);vertical-align:1px}
+.headline{margin-top:16px;font-weight:900;font-size:72px;line-height:.92;letter-spacing:-.055em;text-transform:uppercase;color:var(--ink)}
+.headline b{font-weight:900}
+.headline.script{font-family:"STIX Two Text",Georgia,serif;font-style:italic;font-weight:700;font-size:64px;line-height:1;letter-spacing:-.02em;text-transform:none;color:var(--ink)}
+.headline.script b{background:linear-gradient(transparent 55%,var(--lime) 55% 92%,transparent 92%)}
+.subline.sans{font-family:"Gilroy",Arial,sans-serif;font-style:normal;font-weight:900;font-size:34px;letter-spacing:-.03em;text-transform:uppercase;color:var(--ink)}
+.acc-lime{background:linear-gradient(transparent 45%,var(--lime) 45% 92%,transparent 92%)}
+.acc-orange{background:linear-gradient(transparent 45%,var(--orange) 45% 92%,transparent 92%)}
+.subline{margin-top:14px;font-family:"STIX Two Text",Georgia,serif;font-style:italic;font-weight:700;font-size:36px;color:#3b3d40}
+.note{position:absolute;font:700 italic 43px/.95 "STIX Two Text",Georgia,serif;color:var(--ink);border-bottom:5px solid var(--lime);padding-bottom:4px;white-space:nowrap}
+.kicker{display:inline-block;padding:12px 16px;background:var(--lime);border:2px solid var(--ink);font:900 19px/1 "Gilroy",sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
+.body{position:absolute;left:44px;right:44px;top:200px;bottom:40px}
+/* список с накоплением */
+.list{position:absolute;left:44px;right:44px;top:190px}
+.line{display:flex;align-items:center;gap:22px;height:74px;margin:-2px 0 0;padding:0 18px;border:2px solid var(--ink);background:rgba(247,246,242,.92)}
+.line:first-child{margin-top:0}
+.line .n{font:700 17px/1 "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--orange);width:44px}
+.line svg{width:40px;height:40px;flex:none;color:var(--ink)}
+.line .t{font-weight:900;font-size:34px;text-transform:uppercase;letter-spacing:-.005em;color:var(--ink);white-space:nowrap}
+/* кинетический стек */
+.stack{position:absolute;left:0;top:0;width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.kl{display:flex;align-items:center;gap:22px;line-height:1;white-space:nowrap}
+.kl.light{font-weight:500;font-size:58px;color:#5f6265;letter-spacing:.01em}
+.kl.heavy{font-weight:900;font-size:88px;color:var(--ink);letter-spacing:-.055em;text-shadow:0 4px 0 rgba(255,255,255,.72)}
+.kl.accent{font-weight:900;font-size:96px;letter-spacing:-.055em;color:var(--ink)}
+.kl.accent.lime span{background:linear-gradient(transparent 42%,var(--lime) 42% 94%,transparent 94%)}
+.kl.accent.orange span{background:linear-gradient(transparent 42%,var(--orange) 42% 94%,transparent 94%)}
+.kl.number{font-weight:900;font-size:230px;color:var(--orange);letter-spacing:-.04em;line-height:.9}
+.kl img.ico{width:72px;height:72px;display:block}
+.kl img.sticker{width:96px;height:96px;display:block;filter:invert(45%) sepia(94%) saturate(2600%) hue-rotate(5deg) brightness(101%)}
+/* чипы платформ */
+.chips{position:absolute;left:44px;right:44px;top:230px;display:flex;gap:26px}
+.pchip{display:flex;align-items:center;gap:16px;height:92px;padding:0 28px;border:2px solid var(--ink);border-radius:0;background:rgba(247,246,242,.9);
+       box-shadow:8px 8px 0 rgba(17,18,20,.1);font-weight:800;font-size:36px;color:var(--ink)}
+.pchip img{width:52px;height:52px;display:block}
+/* разъём Claude — Composio — Instagram */
+.socket-row{position:absolute;display:flex;align-items:center;justify-content:space-between}
+.sk-chip{display:flex;align-items:center;gap:14px;height:76px;padding:0 24px;border:2px solid var(--ink);border-radius:0;background:rgba(247,246,242,.92);box-shadow:8px 8px 0 rgba(17,18,20,.1);font-weight:900;font-size:30px;letter-spacing:.05em;color:var(--ink)}
+.sk-chip img{width:34px;height:34px;display:block}
+.sk-chip.composio{border-color:var(--lime);background:var(--ink);box-shadow:0 0 0 4px rgba(182,255,0,.35)}
+.sk-chip.composio img{width:170px;height:auto}
+.sk-wire{flex:1;height:0;border-top:5px dashed var(--orange);margin:0 14px}
+/* экран с обоями */
+.screen{position:absolute;border-radius:0;border:3px solid var(--ink);box-shadow:16px 16px 0 rgba(17,18,20,.15);overflow:hidden;
+        background:radial-gradient(120% 90% at 20% 10%,#dfe9f7 0%,#9dc1ec 38%,#2f6fc1 70%,#0d3c7e 100%)}
+.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.28),rgba(255,255,255,0) 45%,rgba(0,0,0,.18))}
+.screen-frame{position:absolute;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.25);background:#f3f3f1}
+.labels{position:absolute;left:96px;top:96px;width:888px;height:100px}
+.label{position:absolute;left:0;top:0;font-weight:900;font-size:60px;line-height:1;text-transform:uppercase;letter-spacing:-.055em;color:var(--ink);white-space:nowrap;text-shadow:0 4px 0 rgba(255,255,255,.72)}
+.label.orange{color:var(--orange)}
+.label.lime{background:linear-gradient(transparent 45%,var(--lime) 45% 92%,transparent 92%)}
+.screen-bar{position:absolute;left:0;right:0;top:0;height:40px;display:flex;align-items:center;padding:0 20px;background:var(--ink);color:#fff;font:700 15px/1 "IBM Plex Mono",monospace;letter-spacing:.08em}
+.screen-bar::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--lime);margin-right:14px}
+/* объекты */
+.highlight{position:absolute;border:5px solid var(--orange);border-radius:0;box-shadow:0 0 0 6px rgba(252,92,2,.18)}
+.highlight.lime{border-color:var(--lime);box-shadow:0 0 0 6px rgba(182,255,0,.28)}
+.bubble{position:absolute;display:flex;align-items:center;padding:0 26px;border:2px solid var(--ink);border-radius:0;background:rgba(247,246,242,.94);box-shadow:8px 8px 0 rgba(17,18,20,.12);
+        font-weight:700;font-size:30px;color:var(--ink);white-space:nowrap}
+.stamp{position:absolute;display:flex;align-items:center;justify-content:center;font-weight:900;text-transform:uppercase;letter-spacing:-.04em;
+       border-radius:0;border:3px solid var(--ink);color:var(--ink);box-shadow:14px 14px 0 rgba(17,18,20,.16)}
+.stamp.lime{background:var(--lime)} .stamp.orange{background:var(--orange);color:#fff}
+.chip-cta{position:absolute;display:flex;align-items:center;justify-content:center;background:var(--lime);color:var(--ink);font-weight:900;font-size:26px;
+          letter-spacing:.02em;text-transform:uppercase;border-radius:0;border:2px solid var(--ink);box-shadow:8px 8px 0 rgba(17,18,20,.18)}
+.chart{position:absolute;display:flex;align-items:flex-end;gap:22px;padding:0 10px;border-bottom:3px solid var(--ink)}
+.chart i{display:block;flex:1;background:var(--ink);border-radius:0;transform-origin:50% 100%}
+.chart i.top{background:var(--lime);box-shadow:inset 0 0 0 2px var(--ink)}
+.clock{position:absolute}
+.clock svg{width:100%;height:100%;display:block}
+.clock circle{fill:#fff;stroke:var(--ink);stroke-width:6}
+.clock .tick{stroke:var(--ink);stroke-width:5;stroke-linecap:round}
+.clock .hand{stroke:var(--orange);stroke-width:10;stroke-linecap:round;transform-origin:150px 150px}
+.clock .hand.h{stroke:var(--ink);stroke-width:12}
+.tint{position:absolute;inset:0;pointer-events:none;opacity:0}
+.tint-lime{background:radial-gradient(circle at 18% 12%,rgba(182,255,0,.55),transparent 46%)}
+.tint-orange{background:radial-gradient(circle at 84% 18%,rgba(252,92,2,.42),transparent 46%)}
+.tint-blue{background:radial-gradient(circle at 50% 28%,rgba(127,179,232,.6),transparent 50%)}
+.label img.lico{height:52px;width:auto;vertical-align:-10px;margin-right:16px;background:var(--ink);padding:9px 12px;box-sizing:border-box;box-shadow:6px 6px 0 rgba(17,18,20,.14)}
+.marker{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none}
+.marker path{fill:none;stroke:var(--lime);stroke-width:30;stroke-linecap:round;stroke-linejoin:round}

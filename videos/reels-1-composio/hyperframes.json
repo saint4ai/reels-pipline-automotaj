@@ -1,0 +1,45 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
+  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
+  "paths": {
+    "blocks": "compositions",
+    "components": "compositions/components",
+    "assets": "assets"
+  },
+  "media": {
+    "autoProxy": true
+  },
+  "authoringSkill": "talking-head-recut",
+  "registryItems": [
+    {
+      "name": "state-chip-rail",
+      "type": "hyperframes:component",
+      "target": "compositions/components/state-chip-rail.html"
+    },
+    {
+      "name": "tracing-beam",
+      "type": "hyperframes:component",
+      "target": "compositions/components/tracing-beam.html"
+    },
+    {
+      "name": "success-check",
+      "type": "hyperframes:component",
+      "target": "compositions/components/success-check.html"
+    },
+    {
+      "name": "typed-prompt",
+      "type": "hyperframes:component",
+      "target": "compositions/components/typed-prompt.html"
+    },
+    {
+      "name": "ui-focus-zoom",
+      "type": "hyperframes:component",
+      "target": "compositions/components/ui-focus-zoom.html"
+    },
+    {
+      "name": "vox-annotate",
+      "type": "hyperframes:component",
+      "target": "compositions/components/vox-annotate.html"
+    }
+  ]
+}

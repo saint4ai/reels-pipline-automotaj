@@ -141,3 +141,19 @@ python3 scripts/pipe.py --about
 ---
 
 **onAI Academy** · [onai.academy](https://onai.academy) · [@saint4ai](https://instagram.com/saint4ai) · [Telegram](https://t.me/strogo_na_opuse)
+
+---
+
+## Обновление 3 сентября 2026 — монтажный пайплайн v4
+
+Формат собран и утверждён на реальном ролике (`videos/reels-1-composio`): платиновая дизайн-система, сборщик
+сториборда, валидатор из 26 проверок, runbook для агента и правила поведения по Карпати.
+
+- Порядок работы шаг за шагом: [docs/agent-contract/MONTAGE-RUNBOOK.md](docs/agent-contract/MONTAGE-RUNBOOK.md)
+- Дизайн-код всех рилсов: [knowledge/09_design_system.md](knowledge/09_design_system.md)
+- Технический пайплайн от исходников до приёмки и цена в токенах: [knowledge/10_montage_pipeline.md](knowledge/10_montage_pipeline.md)
+- Что пишет режиссёр (схема сториборда) и что пишет агент руками (контракт parts): [docs/agent-contract/](docs/agent-contract/)
+- Правила поведения агента и бюджеты фаз: [docs/agent-contract/KARPATHY-MONTAGE.md](docs/agent-contract/KARPATHY-MONTAGE.md), скилл `.claude/skills/karpathy-guidelines`
+- Новый проект из эталона: `bash scripts/new-reel.sh <id>` → `python3 scripts/pipe.py build videos/<id>` → `bash scripts/render-safe.sh videos/<id> renders/out.mp4`
+
+Медиа, рендеры и платные шрифты в репозиторий не входят; шрифты восстанавливает `scripts/fonts.sh`.

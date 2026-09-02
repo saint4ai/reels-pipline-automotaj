@@ -11,6 +11,7 @@
 | [05_pitfalls.md](05_pitfalls.md) | Грабли, на которых уже наступали |
 | [06_copywriting.md](06_copywriting.md) | Хуки, spoken-речь, CTA, scoring и связь текста с визуальным акцентом |
 | [07_production_system.md](07_production_system.md) | Полная production-система: research, scoring, storyboard, anti-slop, captions 50%/65%, render, QA и learning loop |
+| [08_assets.md](08_assets.md) | Материалы: запрос упомянутых сервисов, поиск в публичном доступе, происхождение и лицензии |
 
 ## С чего начать новый ролик
 

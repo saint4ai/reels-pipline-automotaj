@@ -1,0 +1,53 @@
+{
+ "duration": 51.15,
+ "assertions": [
+  {
+   "kind": "staysInFrame",
+   "selector": "#spk"
+  },
+  {
+   "kind": "appearsBy",
+   "selector": "#ins-set",
+   "bySec": 19.67
+  },
+  {
+   "kind": "appearsBy",
+   "selector": "#ins-chat",
+   "bySec": 27.77
+  },
+  {
+   "kind": "appearsBy",
+   "selector": "#ins-cta",
+   "bySec": 46.85
+  },
+  {
+   "kind": "staysInFrame",
+   "selector": "#spk"
+  },
+  {
+   "kind": "appearsBy",
+   "selector": "#sc-hook",
+   "bySec": 0.5
+  },
+  {
+   "kind": "before",
+   "a": "#sc-hook",
+   "b": "#sc-actions"
+  },
+  {
+   "kind": "appearsBy",
+   "selector": "#sc-actions",
+   "bySec": 3.6
+  },
+  {
+   "kind": "appearsBy",
+   "selector": "#sc-settings",
+   "bySec": 19.9
+  },
+  {
+   "kind": "appearsBy",
+   "selector": "#sc-publish",
+   "bySec": 37.2
+  }
+ ]
+}

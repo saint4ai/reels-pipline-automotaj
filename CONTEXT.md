@@ -1,74 +1,126 @@
 # Быстрый контекст
 
-Читается первым. Задача — не пересказать репозиторий, а не дать себя прочитать целиком.
+Читается первым, подключён через CLAUDE.md. Задача — не дать себя прочитать целиком.
 
 ## Что здесь
 
-Вертикальные рилсы 1080×1920, 30 fps. Рендер — HyperFrames 0.8.20: HTML + CSS + GSAP
-прогоняется headless-браузером в MP4. Аккаунт HeyGen не нужен; `render`, `check`, `lint`,
-`transcribe`, `tts` работают локально.
+Вертикальные рилсы 1080×1920, 30 fps. Рендер — HyperFrames 0.8.20: HTML + CSS + GSAP прогоняется
+headless-браузером в MP4. Всё локально, аккаунт HeyGen не нужен.
 
 ## Спрашивай, а не читай
 
-Композиции весят 60–95 КБ. Читать их целиком, чтобы узнать тайминги, не нужно:
-
 ```bash
-python3 scripts/pipe.py state    <project>   # что за проект, что сломано
-python3 scripts/pipe.py scenes   <project>   # карта композиции, тайминги, твины
+python3 scripts/pipe.py state    <project>   # что есть, что устарело, что сломано: BOM, сеть, шрифты, план ↔ композиция
+python3 scripts/pipe.py scenes   <project>   # сцены из позиций GSAP, медиа, спикер; неразобранное считается
 python3 scripts/pipe.py captions <project>   # субтитры с таймингами
-python3 scripts/pipe.py check    <project>   # вердикт линтера, ошибки дословно
-python3 scripts/pipe.py blocks   <project>   # установленные блоки реестра
-python3 scripts/pipe.py qa       <project>   # вердикт face/safe-zone QA
+python3 scripts/pipe.py plan     <project>   # таймлайн, выведенный из storyboard.json, со стеками акцентов
+python3 scripts/pipe.py validate <project>   # сториборд против DECISIONS и 03_rules: BLOCKING / ACTIONABLE / INFO
+python3 scripts/pipe.py lint     <project>   # статический линтер: секунды, без Chrome
+python3 scripts/pipe.py check    <project>   # полный check: lint + runtime + layout + motion + contrast (Chrome, минуты)
+python3 scripts/pipe.py qa       <project>   # приёмка мастера: ffprobe против плана + contact sheet с safe-zone
+python3 scripts/pipe.py build    <project>   # assemble → validate → lint → check → лист снимков, одной командой
+python3 scripts/pipe.py plan     <project> --layout   # раскладка по секундам: спикер, доска, вставки, события
+python3 scripts/transitions.py index         # чистые окна переходов по id; сториборд ссылается на id, не на источник
 ```
 
-`scenes` вместо `Read index.html` — это 1.1 КБ вместо 60 КБ, потерь по таймингам нет.
-Открывай `index.html` только когда правишь саму разметку.
+`scenes` + `captions` для vibecoding — 4 КБ вместо 96 КБ. Что не разобрано (позиции-выражения),
+команда называет числом. `index.html` открывать кусками (Read с offset) и только когда правишь
+разметку; хук `scripts/hooks/guard-reads.py` блокирует чтение целиком и говорит, чем заменить.
 
 ## Три закона фильтрации
 
-1. **У каждой команды есть байтовый потолок.** При превышении вывод обрезается с явным
-   маркером: сколько выброшено и чем достать. Молчаливого усечения не бывает.
-2. **Лестница важности.** `[BLOCKING]` — дословно и сразу. `[ACTIONABLE]` — одной строкой
-   с указателем. `[INFO]` — только в `logs/`, в разговор не попадает.
-3. **Проекция, а не пересказ.** Проекция — точный вид на выбранное подмножество,
-   поэтому всегда видно, чего ты не видишь.
+1. **Потолок байт** у каждой команды, обрезка с явным маркером; строка длиннее 400 символов режется.
+2. **Лестница важности.** `[BLOCKING]` печатается первым и целиком, `[ACTIONABLE]` одной строкой,
+   `[INFO]` если влезло.
+3. **Проекция, а не пересказ.** Всегда видно, чего не видно.
+
+Законы действуют в pipe.py и в хуке. Остальные чтения — на твоей дисциплине.
+
+## Ходы дороже байтов
+
+Каждое сообщение с инструментом — полное перечитывание контекста. Независимые чтения и проверки
+делаются одним сообщением, несколько вызовов сразу. Замер: 195 из 195 ходов сессии-монолита
+содержали один вызов; батчинг снял бы пятую часть её стоимости.
+
+## Сессии
+
+Запуск: `bash scripts/session.sh <тип> [videos/<project>]` — ставит `--autocompact` и `--effort`.
+
+| Тип | Вход → выход | effort | контекст |
+|---|---|---|---|
+| director | brief + transcript → storyboard.json + DIRECTION.md; композицию не собирает | high | ≤ 150k |
+| build | `pipe.py build` → лист снимков → render-safe → qa; агент пишет только `parts/` по контракту | medium | ≤ 120k |
+| review | contact sheet + замечания Александра → правки сториборда и DECISIONS.md | medium | ≤ 100k |
+| research | по контракту в session.sh: ≤ 5 агентов, выход в reference/research/ и ≤ 2 КБ в knowledge/ | medium | ≤ 150k |
+
+Контракт для любого агента (Codex, Opus, Claude): `docs/agent-contract/`. Сториборд по схеме 7 —
+единственный вход сборщика; `parts/` — единственный рукописный HTML.
+Состояние живёт только в файлах: storyboard.json, DIRECTION.md, DECISIONS.md. Замечание Александра
+записывается в том же ходе, когда прозвучало. Сессию с контекстом больше 100k не оставлять висеть:
+закрыть и начать новую от файлов.
 
 ## Рендер
 
-Запускает человек, не агент:
+Запускает агент фоновой задачей (`run_in_background: true`); харнесс сам разбудит по завершении:
 
 ```bash
-bash scripts/render-safe.sh <project> renders/out.mp4      # WSL
-.\scripts\render-safe.ps1 -ProjectDirectory <project>      # Windows
+bash scripts/render-safe.sh <project> renders/out.mp4 [--draft]
 ```
 
-Обёртка ставит `--quiet`, кладёт полный лог в `logs/render/`, показывает максимум двадцать
-строк. Без неё HyperFrames печатает ~108 КБ, из них 24 600 символов — квадратики
-прогресс-бара. В одной сессии Codex такого мусора набралось 596 160 символов.
+Внутри: lint до Chrome → render `--strict --quiet`, лог в `logs/render/` → проверка файла → qa.
+Печатает не больше 15 строк:
+
+```
+RENDER OK  renders/out.mp4  44M  312s  quality=high
+  QA out.mp4
+    1080x1920 30fps 51.25s (план 51.25) audio aac 48000Hz 7.0 Мбит/с
+    contact sheet (6 кадров, safe-zone поверх): videos/<project>/renders/qa/out-contact.jpg
+    PASS
+```
+
+Коды: 0 OK · 2 lint не пропустил · 3 файла нет · 4 QA · иначе код рендера. При `--quiet` причина
+падения в логе может отсутствовать, обёртка тогда подсказывает `pipe.py check`.
+Прямой `npx hyperframes render` хук блокирует.
 
 ## По умолчанию не делать
 
-- Не запускать финальный рендер из агента и не опрашивать его статус.
-- Не читать полный вывод рендера, ffmpeg или Chrome. Для этого есть обёртка.
-- Не открывать `reference/clips-index.md` (143 КБ) и `knowledge/01_catalog.md` (124 КБ)
-  целиком — только `grep` по конкретному запросу.
-- Не смотреть кадры по одному. Один contact sheet вместо N кадров; один кадр — это ~1500
-  токенов, дороже всего вывода линтера вместе взятого.
-- Не запускать веера субагентов. Замерено: 31 агент = 16,85 млн эквивалентных токенов,
-  три четверти расхода сессии. Два-три агента, и только ради независимости суждения.
+- Не читать целиком `reference/clips-index.md` (147 КБ), `knowledge/01_catalog.md` (124 КБ),
+  `SKILL.md` — только grep.
+- Не смотреть кадры по одному: один contact sheet (~1500 токенов) вместо N кадров.
+- Не запускать веера субагентов. Замерено: 34 агента = 6.3 млн экв., холодный старт каждого
+  ~60k токенов. Два-три, только ради независимости суждения; агенту давать файл и вопрос,
+  не репозиторий.
+- В production-сессиях не читать README, SESSION_LOG, SETUP и `knowledge/04_pipeline.md`
+  (эпоха Remotion).
+- Не опрашивать рендер в цикле.
+
+## Материалы
+
+Упомянут сервис — его логотип и интерфейс берутся, а не рисуются по памяти. Каждый файл получает
+запись в `ASSET_SOURCES.md` проекта. Правило: `knowledge/08_assets.md`. Переходы — только тримы из
+`reference/transitions/trims/` по id окна; права на исходники не подтверждены (manifest.provenance).
+
+## Порядок монтажа
+
+Любой агент начинает с `docs/agent-contract/MONTAGE-RUNBOOK.md`; новый проект — `bash scripts/new-reel.sh <id>`.
+
+## Дизайн-код
+
+Единый облик всех рилсов — `knowledge/09_design_system.md` (токены, типографика, режимы раскладки, закон
+наложений); полный технический пайплайн от исходников до приёмки — `knowledge/10_montage_pipeline.md`. Эталон реализации — `videos/reels-1-composio/parts/scenes.*` и `frame.md` проекта. Собирать «как
+у Codex» по кадрам нельзя: токены берутся из CSS эталона, кадры — только для проверки.
 
 ## Что нельзя ломать
 
-`history/DECISIONS.md` — утверждённый формат. `frame.md` проекта — палитра и семантика цвета.
-`reference/platform-guides/` — safe-zone и caption lanes. Меняется только с прямого слова
-Александра.
+`history/DECISIONS.md` — утверждённый формат. `frame.md` проекта — палитра. `reference/platform-guides/`
+— safe-zone и caption lanes. Меняется только с прямого слова Александра. Открытые противоречия
+формата (лайм, шрифты, доска, отдых): `docs/rules-reconcile.md`; до ответа валидатор держит их на
+уровне INFO/ACTIONABLE.
 
-Ключевые константы: podcast caption `centerY=960`, expert portrait `centerY=1248`,
-expert split fallback `centerY=872` с зазором 32 px до панели. Зумы запрещены.
+Константы: podcast caption `centerY=960`, expert portrait `centerY=1248`, expert split `centerY=872`
+с зазором 32 px до панели. Зумы запрещены.
 
-## Режимы
-
-**Production** — короткий контекст: brief, одна сцена, точечная правка, стоп.
-**Research** — полная база знаний, разбор референсов, обновление правил.
-
-Не смешивать в одной сессии.
+Решения Александра от 2 сентября 2026 (подробно в DECISIONS.md): лайм `#B6FF00`; шрифты Benzin (H1),
+Gilroy (H2 и субтитры), STIX Two Text Italic (акцентные слова), файлы — `bash scripts/fonts.sh <project>`;
+субтитры три слова, кегль 66; положение спикера меняется не реже раза в 10 с; пауз без визуализации
+дольше 4 с нет; заставок нет — монтаж и субтитры с первого слова.
