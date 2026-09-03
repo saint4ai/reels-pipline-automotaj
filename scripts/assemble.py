@@ -219,6 +219,7 @@ def build(project: Path) -> dict:
     def xy(name):
         s = states[name]
         return f'{{x:{s["x"]},y:{s["y"]},width:{s["w"]},height:{s["h"]}}}'
+    skin = str(sb.get("skin") or "platinum")
     lane_cy = float(lane.get("centerY", lane["y"] + lane["h"] / 2))
     def st_js(name, t):
         st = states[name]; out = []
@@ -275,7 +276,31 @@ def build(project: Path) -> dict:
 
     grid = th["gridPitch"]
     css = f"""
-      :root{{--paper:{th['paper']};--paper-mid:{th['paperMid']};--paper-lo:{th['paperLo']};--ink:{th['ink']};--lime:{th['lime']};--orange:{th['orange']};--grey:{th['grey']}}}
+      :root{{--paper:{th['paper']};--paper-mid:{th['paperMid']};--paper-lo:{th['paperLo']};--ink:{th['ink']};--lime:{th['lime']};--orange:{th['orange']};--grey:{th['grey']};
+             --text:var(--ink);--muted:#676a6d;--card-bg:rgba(247,246,242,.86);--card-border:var(--ink);--card-shadow:14px 14px 0 rgba(17,18,20,.12);--kl-shadow:0 4px 0 rgba(255,255,255,.72);
+             --bg1:#f8f7f3;--bg2:var(--paper-mid);--bg3:#c7c7c4;--grid:rgba(17,18,20,.075);--sweep:rgba(255,255,255,.7);--sweep-op:.45;
+             --cap-bg:rgba(4,4,4,.24);--cap-border:rgba(255,255,255,.22);--cap-dim:#d6d6d6;--cap-on:#ffffff}}
+      /* скины: один бренд, пять дизайн-языков (Александр 03.09: ролики не должны выглядеть одинаково) */
+      #root.skin-ink{{--text:#F1F1EE;--muted:#A3A8A2;--card-bg:#1a1c1b;--card-border:#F1F1EE;--card-shadow:14px 14px 0 rgba(255,255,255,.07);--kl-shadow:none;
+             --bg1:#232624;--bg2:#141615;--bg3:#0b0c0b;--grid:rgba(255,255,255,.06);--sweep:rgba(255,255,255,.14);--sweep-op:.22;
+             --cap-bg:transparent;--cap-border:transparent;--cap-dim:#6f736f;--cap-on:#ffffff}}
+      #root.skin-paper{{--muted:#6b6f6b;--card-bg:transparent;--card-border:transparent;--card-shadow:none;--kl-shadow:none;--orange:#C96442;
+             --bg1:#f7f7f4;--bg2:#f2f2ef;--bg3:#e6e6e2;--grid:transparent;--sweep:transparent;--sweep-op:0;
+             --cap-bg:rgba(26,28,27,.86);--cap-border:transparent;--cap-dim:#a9aca8;--cap-on:#ffffff}}
+      #root.skin-poster{{--card-bg:#111214;--card-border:#111214;--card-shadow:14px 14px 0 rgba(17,18,20,.28);--kl-shadow:none;
+             --bg1:#c9ff2e;--bg2:#B6FF00;--bg3:#9fe000;--grid:rgba(17,18,20,.10);--sweep:rgba(255,255,255,.55);--sweep-op:.5;
+             --cap-bg:rgba(17,18,20,.92);--cap-border:transparent;--cap-dim:#8a8a86;--cap-on:#ffffff}}
+      #root.skin-mono{{--lime:#D2D2CF;--orange:#C61F32;--card-bg:#f4f4f2;--card-shadow:14px 14px 0 rgba(17,18,20,.16);
+             --bg1:#efefed;--bg2:#e2e2df;--bg3:#cfcfcb;--grid:rgba(17,18,20,.09);--sweep:rgba(255,255,255,.6);--sweep-op:.4;
+             --cap-bg:rgba(17,18,20,.9);--cap-border:transparent;--cap-dim:#9a9a97;--cap-on:#ffffff}}
+      #root.skin-paper #grid{{background-image:radial-gradient(rgba(26,28,27,.28) 1.7px,transparent 1.9px);background-size:48px 48px;opacity:1}}
+      #root:not(.skin-platinum) .tint{{display:none}}
+      #root.skin-poster .acc-lime,#root.skin-poster .kl.accent.lime span{{background:linear-gradient(transparent 45%,#111214 45% 92%,transparent 92%);color:#B6FF00}}
+      #root.skin-poster .stamp.lime,#root.skin-poster .chip-cta,#root.skin-poster .kicker{{background:#111214;color:#B6FF00;border-color:#111214}}
+      #root.skin-poster .scene-card .headline,#root.skin-poster .scene-card .eyebrow,#root.skin-poster .scene-card .subline,#root.skin-poster .scene-card .note,#root.skin-poster .scene-card .counter,#root.skin-poster .scene-card .line .t,#root.skin-poster .scene-card .brow{{color:#F7F6F2}}
+      #root.skin-poster .scene-card .note{{border-color:#B6FF00}} #root.skin-poster .scene-card .line{{background:#1a1c1b;border-color:#F7F6F2}} #root.skin-poster .scene-card .btrack{{background:#1a1c1b;border-color:#F7F6F2}}
+      #root.skin-ink .stamp.lime{{color:#111214}} #root.skin-ink .list.term{{border-color:#F1F1EE}} #root.skin-ink .line{{background:#1a1c1b;border-color:#F1F1EE}} #root.skin-ink .brow .btrack{{background:#1a1c1b;border-color:#F1F1EE}}
+      #root.skin-ink #spk{{box-shadow:18px 18px 0 rgba(255,255,255,.06)}}
       *,*::before,*::after{{box-sizing:border-box}}
       html,body{{width:1080px;height:1920px;margin:0;overflow:hidden;background:var(--paper-mid)}}
       body{{font-family:"Manrope","Gilroy",Arial,sans-serif;color:var(--ink)}}
@@ -283,11 +308,11 @@ def build(project: Path) -> dict:
       #bg{{position:absolute;inset:0;overflow:hidden;background:
             radial-gradient(circle at 18% 2%,rgba(255,255,255,.95),transparent 35%),
             radial-gradient(circle at 88% 84%,rgba(85,87,89,.16),transparent 38%),
-            linear-gradient(135deg,#f8f7f3 0%,var(--paper-mid) 46%,#c7c7c4 100%)}}
+            linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 46%,var(--bg3) 100%)}}
       #grid{{position:absolute;inset:0;opacity:1;
-             background-image:linear-gradient(rgba(17,18,20,.075) 1px,transparent 1px),linear-gradient(90deg,rgba(17,18,20,.075) 1px,transparent 1px);
+             background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
              background-size:{grid}px {grid}px}}
-      #bg::after{{content:"";position:absolute;top:-300px;bottom:-300px;left:150px;width:580px;background:linear-gradient(108deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-12deg);opacity:.45;pointer-events:none}}
+      #bg::after{{content:"";position:absolute;top:-300px;bottom:-300px;left:150px;width:580px;background:linear-gradient(108deg,transparent,var(--sweep),transparent);transform:skewX(-12deg);opacity:var(--sweep-op);pointer-events:none}}
       #spk{{position:absolute;left:0;top:0;overflow:hidden;border-radius:{radius}px;background:#111;border:3px solid var(--ink);box-shadow:18px 18px 0 rgba(17,18,20,.14);z-index:5}}
       #spk video{{width:100%;height:100%;object-fit:cover;object-position:50% 45%;display:block;filter:contrast(1.04) saturate(.96) brightness(.98)}}
       #spk::after{{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.16);background:linear-gradient(180deg,rgba(8,8,8,.04),transparent 48%,rgba(8,8,8,.18));pointer-events:none}}
@@ -296,15 +321,15 @@ def build(project: Path) -> dict:
       #caption-stack{{position:absolute;left:{lane['x']}px;top:{lane['y']}px;width:{lane['w']}px;height:{lane['h']}px;z-index:20}}
       .caption{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}}
       .cap-card{{display:inline-flex;align-items:center;justify-content:center;gap:0 16px;max-width:100%;padding:16px 26px 19px;
-                 background:rgba(4,4,4,.24);border:1px solid rgba(255,255,255,.22);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.20)}}
+                 background:var(--cap-bg);border:1px solid var(--cap-border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.20)}}
       /* караоке: текст залит градиентом «цвет | серый», background-position едет от 100% (серый) к 0% (цвет) */
       .cw{{display:inline-block;font-family:"Manrope","Gilroy",Arial,sans-serif;font-weight:800;font-size:inherit;line-height:1.03;white-space:nowrap;{"text-transform:uppercase;" if cap.get("uppercase") else ""}
            letter-spacing:-.01em;color:transparent;-webkit-background-clip:text;background-clip:text;background-repeat:no-repeat;
-           background-image:linear-gradient(90deg,#ffffff 0 48%,#d6d6d6 52% 100%);background-size:200% 100%;background-position:100% 0}}
+           background-image:linear-gradient(90deg,var(--cap-on) 0 48%,var(--cap-dim) 52% 100%);background-size:200% 100%;background-position:100% 0}}
       .cw--emph{{font-family:"STIX Two Text",Georgia,serif;font-style:italic;font-weight:700;letter-spacing:-.03em;padding-right:.04em;
                  text-decoration:underline;text-decoration-thickness:.09em;text-underline-offset:.12em}}
-      .cw--lime{{background-image:linear-gradient(90deg,var(--lime) 0 48%,#d6d6d6 52% 100%);text-decoration-color:var(--lime)}}
-      .cw--orange{{background-image:linear-gradient(90deg,var(--orange) 0 48%,#d6d6d6 52% 100%);text-decoration-color:var(--orange)}}
+      .cw--lime{{background-image:linear-gradient(90deg,var(--lime) 0 48%,var(--cap-dim) 52% 100%);text-decoration-color:var(--lime)}}
+      .cw--orange{{background-image:linear-gradient(90deg,var(--orange) 0 48%,var(--cap-dim) 52% 100%);text-decoration-color:var(--orange)}}
       .tr{{position:absolute;inset:0;z-index:30;pointer-events:none}}
       .tr-media{{position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover;mix-blend-mode:screen}}
       {"".join(clips_css)}
@@ -329,7 +354,7 @@ def build(project: Path) -> dict:
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="{esc(comp['id'])}" data-width="1080" data-height="1920" data-duration="{D:.3f}" data-fps="{fps}">
+    <div id="root" class="skin-{skin}" data-composition-id="{esc(comp['id'])}" data-width="1080" data-height="1920" data-duration="{D:.3f}" data-fps="{fps}">
       <div id="bg"><div id="grid"></div></div>
       {cu_html}
       {"".join(clips_html)}

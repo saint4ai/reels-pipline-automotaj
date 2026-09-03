@@ -749,12 +749,21 @@ def cmd_validate(project: Path, *_):
         st_cy = float(states[st_name].get("captionY", 960)) if st_name in states else 960.0
         cap_y = float(sc.get("captionY", st_cy))
         lane_here = (lane_box[0], cap_y - lane_box[3] / 2, lane_box[2], lane_box[3]) if lane_box else None
+        _h = str(sc.get("headline", "") or "").replace("**", "").replace("^^", "")
+        if sc.get("kind") == "card" and _h:
+            _w = len(_h) * (0.5 * 64 if sc.get("headlineStyle") == "script" else 0.6 * 72)
+            if _w > float(zone.get("w", 888)) - 84:
+                say("BLOCKING", "V26 наложение", f"сцена {sc['id']}: заголовок «{_h[:28]}» ≈{_w:.0f} px не влезает в карточку ({float(zone.get('w', 888)) - 84:.0f}) — перенос на вторую строку ляжет на объекты")
         objs = []
         for o in sc.get("objects") or []:
             bx = o.get("box")
             if not bx:
                 continue
-            ab = (ox + float(bx.get("x", 0)), oy + float(bx.get("y", 0)), float(bx.get("w", 0)), float(bx.get("h", 0)))
+            if o.get("kind") in ("chip", "highlight"):   # чип и рамка живут на слое overlay в координатах кадра
+                ab = (float(bx.get("x", 0)), float(bx.get("y", 0)), float(bx.get("w", 0)), float(bx.get("h", 0)))
+            else:
+                ab = (ox + float(bx.get("x", 0)), oy + float(bx.get("y", 0)), float(bx.get("w", 0)), float(bx.get("h", 0)))
+            o["_h0"], o["_w0"] = ab[3], ab[2]
             rot = abs(float(o.get("rotate", 0) or 0))
             if rot:   # повёрнутый объект (штамп): описанный прямоугольник, иначе углы наезжают на соседей незаметно для проверки
                 import math as _m
@@ -765,10 +774,16 @@ def cmd_validate(project: Path, *_):
             oi, bi, ai, ui = objs[i]
             for k in range(i + 1, len(objs)):
                 ok_, bk, ak, uk = objs[k]
-                if {oi["kind"], ok_["kind"]} & {"highlight", "arrow"}:
+                if {oi["kind"], ok_["kind"]} & {"arrow"}:
                     continue
                 if min(ui, uk) > max(ai, ak) + 1e-6 and inter(bi, bk) > 0:
                     say("BLOCKING", "V26 наложение", f"сцена {sc['id']}: {oi['kind']} и {ok_['kind']} пересекаются ({max(ai, ak):.1f}–{min(ui, uk):.1f} с)")
+            # текст шире бокса вылезает на соседей незаметно для боксов: оценка ширины по символам
+            _txt = str(oi.get("text", "") or "")
+            if _txt and oi["kind"] in ("stamp", "chip", "note"):
+                _need = {"stamp": len(_txt) * 0.58 * 0.62 * oi["_h0"] + 40, "chip": len(_txt) * 0.56 * 26 + 60, "note": len(_txt) * 0.51 * 43}[oi["kind"]]
+                if _need > oi["_w0"] * 1.02:
+                    say("BLOCKING", "V26 наложение", f"сцена {sc['id']}: {oi['kind']} «{_txt[:24]}» шире бокса: нужно ≈{_need:.0f} px, бокс {bi[2]:.0f} — расширь бокс или укороти текст")
             if oi["kind"] in TEXTY:
                 if lane_here and inter(bi, lane_here) > 0:
                     say("BLOCKING", "V26 наложение", f"сцена {sc['id']}: {oi['kind']} ({bi[0]:.0f},{bi[1]:.0f}) заходит на полосу субтитров")
@@ -777,6 +792,35 @@ def cmd_validate(project: Path, *_):
                     sbx = _box(states[sname]) if sname in states else None
                     if sbx and inter(bi, sbx) > 0:
                         say("BLOCKING", "V26 наложение", f"сцена {sc['id']}: {oi['kind']} ({bi[0]:.0f},{bi[1]:.0f}) пересекает окно спикера {sname}")
+    # V27 пустой кадр: в карточке/стеке событие не реже чем раз в 2.5 с (Эли: кадр не стоит дольше 2 с); разрывы между сценами ≤ 0.5 с
+    _scs = sorted(sb.get("scenes") or [], key=lambda x: float(x.get("from", 0)))
+    for i, sc in enumerate(_scs):
+        s_from, s_to = float(sc.get("from", 0)), float(sc.get("to", 0))
+        _ev = [s_from]
+        if sc.get("subline"): _ev.append(float(sc["subline"].get("at", s_from)))
+        for li in sc.get("list") or []: _ev.append(float(li.get("at", s_from)))
+        for k in sc.get("stack") or []: _ev.append(float(k.get("at", s_from)))
+        for o in sc.get("objects") or []:
+            _ev.append(float(o.get("at", s_from)))
+            for r in o.get("rows") or []: _ev.append(float(r.get("at", o.get("at", s_from))))
+        _ev = sorted(set(_ev)) + [s_to]
+        worst = max((b - a, a, b) for a, b in zip(_ev, _ev[1:]))
+        if worst[0] > 3.5 and (s_to - s_from) > 4.0:
+            say("BLOCKING", "V27 пустой кадр", f"сцена {sc['id']}: ничего не происходит {worst[0]:.1f} с ({worst[1]:.1f}–{worst[2]:.1f}) — добавь note/объект/строку на слове речи")
+        if i + 1 < len(_scs):
+            gap = float(_scs[i + 1].get("from", 0)) - s_to
+            if gap > 0.8:
+                say("BLOCKING", "V27 пустой кадр", f"разрыв между сценами {sc['id']} и {_scs[i + 1]['id']}: {gap:.1f} с без графики")
+    # V28 строка кинетического стека шире зоны: оценка по символам (light 58, heavy 88, accent 96, number 150; ~0.6 em за символ)
+    for sc in sb.get("scenes") or []:
+        if sc.get("kind") != "kinetic":
+            continue
+        zw = float((sc.get("zone") or {}).get("w", 888))
+        for k in sc.get("stack") or []:
+            size = {"light": 58, "heavy": 88, "accent": 96, "number": 150}.get(k.get("role", "heavy"), 88)
+            need = len(str(k.get("text", ""))) * (0.61 if k.get("role") == "accent" else 0.57) * size + (72 + 22 if k.get("icon") else 0)  # accent: маркер с отступами
+            if need > zw:
+                say("BLOCKING", "V28 стек", f"сцена {sc['id']}: строка «{str(k.get('text',''))[:26]}» ({k.get('role')}) ≈{need:.0f} px шире зоны {zw:.0f} — раздели на две строки или укороти")
     # V6 переходы
     manifest = None
     mp = REPO / "reference/transitions/manifest.json"
