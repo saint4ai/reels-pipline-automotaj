@@ -1,6 +1,6 @@
 # Third-party notices
 
-This private production repository contains or coordinates third-party components. Their original terms remain in force.
+This public production repository contains or coordinates third-party components. Their original terms remain in force.
 
 - HyperFrames / HeyGen — Apache-2.0 components and tooling; see upstream package notices.
 - GSAP 3.15.0 — Copyright GreenSock. The vendored runtime retains its license header and is subject to the [GSAP Standard License](https://gsap.com/standard-license/).
