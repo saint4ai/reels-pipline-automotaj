@@ -1,39 +1,63 @@
 #!/usr/bin/env bash
+# Подготовка репозитория на новой машине (WSL / macOS / Linux).
+#   bash scripts/bootstrap-portable.sh [--codex] [--with-external-skills]
+# Проверяет инструменты, ставит сторож секретов перед коммитом и показывает, чего не хватает.
+# Навыки для Claude Code уже лежат в .claude/skills и подхватываются сами; --codex копирует их в Codex.
 set -euo pipefail
 
 repo_root_path="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-codex_root_path="${CODEX_HOME:-$HOME/.codex}"
-codex_skills_path="$codex_root_path/skills"
-
-mkdir -p "$codex_skills_path"
-
-for skill_name in onai-content-engine talking-head-recut; do
-  source_path="$repo_root_path/.agents/skills/$skill_name"
-  destination_path="$codex_skills_path/$skill_name"
-
-  if [[ ! -d "$source_path" ]]; then
-    echo "Repo-local skill not found: $source_path" >&2
-    exit 1
-  fi
-
-  mkdir -p "$destination_path"
-  cp -R "$source_path/." "$destination_path/"
-  echo "Installed local skill: $skill_name"
+with_codex=0; with_external=0
+for arg in "$@"; do
+  case "$arg" in
+    --codex) with_codex=1 ;;
+    --with-external-skills) with_external=1; with_codex=1 ;;
+    --skip-external-skills) ;;  # старый ключ: внешние навыки и так не ставятся без --with-external-skills
+    *) echo "неизвестный ключ: $arg" >&2; exit 2 ;;
+  esac
 done
 
-if [[ "${1:-}" != "--skip-external-skills" ]]; then
-  command -v npx >/dev/null 2>&1 || {
-    echo 'npx is required to install external skills.' >&2
-    exit 1
-  }
+missing=()
+check() { command -v "$1" >/dev/null 2>&1 && echo "ok   $1" || { echo "нет  $1 — $2"; missing+=("$1"); }; }
+check node    "нужен Node.js 22 или новее"
+check npx     "идёт вместе с Node.js"
+check ffmpeg  "нужен для подготовки медиа и рендера"
+check ffprobe "идёт вместе с ffmpeg"
+check python3 "нужен Python 3.10 или новее"
+if command -v node >/dev/null 2>&1; then
+  major="$(node -p 'process.versions.node.split(".")[0]')"
+  [[ "$major" -ge 22 ]] || { echo "нет  node ≥ 22 — сейчас $(node -v)"; missing+=("node22"); }
+fi
 
+if [[ -d "$repo_root_path/.git" ]]; then
+  bash "$repo_root_path/scripts/hooks/install.sh"
+fi
+
+echo "Claude Code: навыки уже в .claude/skills ($(ls "$repo_root_path/.claude/skills" | tr '\n' ' '))"
+
+if [[ "$with_codex" == 1 ]]; then
+  codex_skills_path="${CODEX_HOME:-$HOME/.codex}/skills"
+  mkdir -p "$codex_skills_path"
+  for skill_path in "$repo_root_path"/.claude/skills/*/; do
+    name="$(basename "$skill_path")"
+    mkdir -p "$codex_skills_path/$name"
+    cp -R "$skill_path." "$codex_skills_path/$name/"
+    echo "Codex: навык $name"
+  done
+fi
+
+if [[ "$with_external" == 1 ]]; then
   npx --yes skills@1.5.23 add coreyhaines31/marketingskills@e55de886fe7580ec75cdb7ded5092b33f7d4ed58 \
     --global --agent codex --copy --yes \
     --skill product-marketing customer-research content-strategy copywriting copy-editing social marketing-psychology analytics
-
   npx --yes skills@1.5.23 add robpalmer99/claude-code-copywriting-skills@7dbfd61e0f283ca09c20b3eca3657365e00e991d \
     --global --agent codex --copy --yes \
     --skill direct-response-copy copychief ad-copy
 fi
 
-echo "Portable ONai setup complete. Codex skills: $codex_skills_path"
+if [[ ${#missing[@]} -eq 0 ]]; then
+  npx --yes hyperframes@0.8.20 doctor || true
+  echo "Готово. Дальше: bash scripts/new-reel.sh <id> → bash scripts/prepare-media.sh videos/<id> <запись>"
+else
+  echo "Не хватает: ${missing[*]}. Попроси Claude поставить их и запусти bootstrap ещё раз." >&2
+  exit 1
+fi

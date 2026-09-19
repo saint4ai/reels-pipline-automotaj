@@ -11,7 +11,7 @@ mkdir -p "$DST"/{assets/brand,assets/sfx,assets/fonts,assets/vendor,media,parts,
 cp "$SRC"/parts/scenes.{html,css,js} "$DST/parts/"
 cp "$SRC"/assets/brand/*.svg "$DST/assets/brand/" 2>/dev/null || true
 cp "$SRC"/assets/sfx/*.wav "$DST/assets/sfx/" 2>/dev/null || true
-cp "$SRC"/assets/fonts/* "$DST/assets/fonts/" 2>/dev/null || true
+bash "$ROOT/scripts/fonts.sh" "$DST" >/dev/null   # открытые шрифты системы из fonts/: Manrope, JetBrains Mono, STIX
 cp "$SRC"/assets/vendor/* "$DST/assets/vendor/" 2>/dev/null || true
 cp "$SRC/frame.md" "$DST/frame.md"
 python3 - "$SRC/storyboard.json" "$DST/storyboard.json" "$ID" <<'PY'
@@ -50,4 +50,4 @@ cat > "$DST/DIRECTION.md" <<EOF
 - Состояния спикера и смены:
 EOF
 echo "создан $DST"
-echo "дальше: медиа в assets/ и media/ (без кропа, -g 30) → captions.words → scenes → python3 scripts/pipe.py build videos/$ID"
+echo "дальше: bash scripts/prepare-media.sh videos/$ID <запись> → режиссура (storyboard.json, DIRECTION.md) → python3 scripts/pipe.py build videos/$ID"

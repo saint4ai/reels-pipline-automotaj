@@ -1,46 +1,50 @@
+# Подготовка репозитория на новой машине (Windows / PowerShell).
+#   powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-portable.ps1 [-Codex] [-WithExternalSkills]
+# Проверяет инструменты и показывает, чего не хватает. Навыки для Claude Code уже лежат в .claude\skills.
 [CmdletBinding()]
 param(
-  [switch]$SkipExternalSkills
+  [switch]$Codex,
+  [switch]$WithExternalSkills,
+  [switch]$SkipExternalSkills  # старый ключ: внешние навыки и так не ставятся без -WithExternalSkills
 )
 
 $ErrorActionPreference = 'Stop'
-
 $repoRootPath = (Resolve-Path (Join-Path $PSScriptRoot '..')).ProviderPath
-$codexRootPath = if ([string]::IsNullOrWhiteSpace($env:CODEX_HOME)) {
-  Join-Path $env:USERPROFILE '.codex'
-} else {
-  $env:CODEX_HOME
+$missing = @()
+foreach ($tool in @('node', 'npx', 'ffmpeg', 'ffprobe', 'python')) {
+  if (Get-Command $tool -ErrorAction SilentlyContinue) { Write-Host "ok   $tool" } else { Write-Host "нет  $tool"; $missing += $tool }
 }
-$codexSkillsPath = Join-Path $codexRootPath 'skills'
+if (Get-Command node -ErrorAction SilentlyContinue) {
+  $major = [int](& node -p 'process.versions.node.split(".")[0]')
+  if ($major -lt 22) { Write-Host "нет  node >= 22"; $missing += 'node22' }
+}
 
-New-Item -ItemType Directory -Path $codexSkillsPath -Force | Out-Null
+Write-Host "Claude Code: навыки уже в .claude\skills"
 
-foreach ($skillName in @('onai-content-engine', 'talking-head-recut')) {
-  $sourcePath = Join-Path $repoRootPath ".agents\skills\$skillName"
-  $destinationPath = Join-Path $codexSkillsPath $skillName
-
-  if (-not (Test-Path -LiteralPath $sourcePath)) {
-    throw "Repo-local skill not found: $sourcePath"
+if ($Codex -or $WithExternalSkills) {
+  $codexRootPath = if ([string]::IsNullOrWhiteSpace($env:CODEX_HOME)) { Join-Path $env:USERPROFILE '.codex' } else { $env:CODEX_HOME }
+  $codexSkillsPath = Join-Path $codexRootPath 'skills'
+  New-Item -ItemType Directory -Path $codexSkillsPath -Force | Out-Null
+  Get-ChildItem -LiteralPath (Join-Path $repoRootPath '.claude\skills') -Directory | ForEach-Object {
+    $destination = Join-Path $codexSkillsPath $_.Name
+    New-Item -ItemType Directory -Path $destination -Force | Out-Null
+    Get-ChildItem -LiteralPath $_.FullName -Force | Copy-Item -Destination $destination -Recurse -Force
+    Write-Host "Codex: навык $($_.Name)"
   }
-
-  New-Item -ItemType Directory -Path $destinationPath -Force | Out-Null
-  Get-ChildItem -LiteralPath $sourcePath -Force |
-    Copy-Item -Destination $destinationPath -Recurse -Force
-  Write-Host "Installed local skill: $skillName"
 }
 
-if (-not $SkipExternalSkills) {
+if ($WithExternalSkills) {
   $npxCommand = Get-Command npx -ErrorAction Stop
-
   & $npxCommand.Source --yes skills@1.5.23 add coreyhaines31/marketingskills@e55de886fe7580ec75cdb7ded5092b33f7d4ed58 `
     --global --agent codex --copy --yes `
     --skill product-marketing customer-research content-strategy copywriting copy-editing social marketing-psychology analytics
-  if ($LASTEXITCODE -ne 0) { throw 'Marketing Skills installation failed.' }
-
   & $npxCommand.Source --yes skills@1.5.23 add robpalmer99/claude-code-copywriting-skills@7dbfd61e0f283ca09c20b3eca3657365e00e991d `
     --global --agent codex --copy --yes `
     --skill direct-response-copy copychief ad-copy
-  if ($LASTEXITCODE -ne 0) { throw 'Rob Palmer skills installation failed.' }
 }
 
-Write-Host "Portable ONai setup complete. Codex skills: $codexSkillsPath"
+if ($missing.Count -gt 0) {
+  throw "Не хватает: $($missing -join ', '). Попроси Claude поставить их и запусти bootstrap ещё раз."
+}
+& (Get-Command npx).Source --yes hyperframes@0.8.20 doctor
+Write-Host "Готово. Дальше: bash scripts/new-reel.sh <id> (в WSL) или попроси Claude создать проект."

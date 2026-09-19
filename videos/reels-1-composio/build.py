@@ -4,7 +4,7 @@
 #  onAI Academy · @saint4ai · https://onai.academy
 #  storyboard.json + transcript.json → index.html
 #  Стиль: белый лист (minimal) + оранжевый маркер (whiteboard), раскладка pip.
-#  Источники: skills/talking-head-recut/references/ и разбор референса 0902.mp4.
+#  Источники: .claude/skills/talking-head-recut/references/ и разбор референса 0902.mp4.
 #  origin=onai-rpa-2026-09  spec=three-laws/v1
 # ---------------------------------------------------------------------------
 from __future__ import annotations
