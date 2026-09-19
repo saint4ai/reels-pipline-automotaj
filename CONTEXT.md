@@ -44,14 +44,17 @@ python3 scripts/transitions.py index         # чистые окна перех�
 
 ## Сессии
 
+Новый ролик начинается не с сессии, а с опроса владельца: `docs/agent-contract/WORKFLOW.md`. Модель — самая новая Opus
+(Codex — `gpt-5.6-sol`), усилие не ниже high.
+
 Запуск: `bash scripts/session.sh <тип> [videos/<project>]` — ставит `--autocompact` и `--effort`.
 
 | Тип | Вход → выход | effort | контекст |
 |---|---|---|---|
-| director | brief + transcript → storyboard.json + DIRECTION.md; композицию не собирает | high | ≤ 150k |
-| build | `pipe.py build` → лист снимков → render-safe → qa; агент пишет только `parts/` по контракту | medium | ≤ 120k |
-| review | contact sheet + замечания Александра → правки сториборда и DECISIONS.md | medium | ≤ 100k |
-| research | по контракту в session.sh: ≤ 5 агентов, выход в reference/research/ и ≤ 2 КБ в knowledge/ | medium | ≤ 150k |
+| director | brief + transcript → storyboard.json + DIRECTION.md; композицию не собирает | xhigh | ≤ 150k |
+| build | `pipe.py build` → лист снимков → render-safe → qa; агент пишет только `parts/` по контракту | high | ≤ 120k |
+| review | contact sheet + замечания Александра → правки сториборда и DECISIONS.md | high | ≤ 100k |
+| research | по контракту в session.sh: ≤ 5 агентов, выход в reference/research/ и ≤ 2 КБ в knowledge/ | high | ≤ 150k |
 
 Контракт для любого агента (Codex, Opus, Claude): `docs/agent-contract/`. Сториборд по схеме 7 —
 единственный вход сборщика; `parts/` — единственный рукописный HTML.
