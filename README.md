@@ -3,7 +3,10 @@
 > **Агенту (Claude Code, Codex), которому дали ссылку на этот репозиторий:** склонируй, подготовь всё по
 > [SETUP.md](SETUP.md) (ставишь сам, человеку в терминал ничего не давай), а когда всё готово — **сразу начни
 > опрос владельца** по [docs/agent-contract/WORKFLOW.md](docs/agent-contract/WORKFLOW.md): модель и усилие, потом
-> вопросы по одному. Монтаж — только после опроса.
+> вопросы по одному. Сразу после опроса — **предложи концепцию монтажа** по
+> [knowledge/montage-concepts.md](knowledge/montage-concepts.md) и покажи картинкой `reference/style-previews/four-styles.png`.
+> Монтаж — только после опроса и выбора концепции; рендер — только после «да» владельца на листы кадров.
+> В Claude Code весь путь запускается командой `/reel`.
 
 **[onAI Academy](https://onai.academy)** · автор **[@saint4ai](https://instagram.com/saint4ai)**
 
