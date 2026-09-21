@@ -37,6 +37,8 @@ cd studio && npm ci && npx remotion browser ensure
 - `src/ds/` — глубина текста и панелей, токены, проверка контейнеров `useFit`.
 - `src/montage/` — субтитры-капсула, чипы, логотипы, счётчики.
 - `src/stories/` — витрина Storybook.
+- `src/examples/` — код утверждённых роликов как образцы: `direct` (19, сцены), `money` (20, постер), `montage` (21, стекло),
+  `course` (22, канвас), `vibe` (22, паттерны движения); медиа этих роликов в репо нет, блоки переносятся в свой ролик.
 - `src/videos/<id>/` — ролики: `project.ts` (данные), `words.ts` (расшифровка), `index.tsx` (своя точка входа).
 - `public/` — шрифты, звуки `sfx/`, логотипы `brand/`, предметы `objects/`; записи — `public/projects/<id>/` (не в git).
 

@@ -5,8 +5,8 @@
 0. **Стек — Remotion + Storybook** в папке `studio/`. HyperFrames для новых роликов не используется (`docs/legacy-hyperframes.md`).
 1. **Первое действие после установки и в любой сессии без конкретной задачи — опрос владельца** по `docs/agent-contract/WORKFLOW.md`:
    модель `gpt-5.6-sol` с `model_reasoning_effort = "xhigh"` (не ниже `"high"`) → **формат** (рилс или YouTube, картинка
-   `reference/style-previews/formats.jpg`) → **стиль** (КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ или свой, картинка
-   `reference/style-previews/styles.jpg`) → вопросы по одному → текст с ресёрчем и тремя скептиками → монтаж → листы кадров → рендер.
+   `reference/style-previews/formats.jpg`) → **стиль** (1–4 КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ, паттерны 5–12 или свой; картинки
+   `reference/style-previews/styles.jpg` и `more-styles.jpg`, каталог `patterns/README.md`) → вопросы по одному → текст с ресёрчем и тремя скептиками → монтаж → листы кадров → рендер.
    Рендер запрещён без `videos/<проект>/BRIEF.md` и `CONCEPT.md`.
 2. Прочитай `CONTEXT.md` первым: команды студии, где что лежит, экономия подписки.
 3. Правила монтажа, форматы, проверки и грабли: `.claude/skills/remotion-montage/SKILL.md` (в Codex навыки копирует

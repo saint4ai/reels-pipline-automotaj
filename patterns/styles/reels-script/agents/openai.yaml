@@ -1,0 +1,4 @@
+interface:
+  display_name: "ONai Reels Script"
+  short_description: "Живая речь для Reels по исследованиям ONai"
+  default_prompt: "Используй $onai-reels-script: подготовь разговорный сценарий Reels по выбранной теме и сохрани чистый текст для записи."

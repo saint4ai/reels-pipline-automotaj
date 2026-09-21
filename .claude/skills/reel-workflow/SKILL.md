@@ -9,8 +9,9 @@ description: Use at the start of every new video in this repository (new Reel or
 
 1. **Модель и усилие.** Claude Code — самая новая Opus, xhigh (не ниже high); Codex — `gpt-5.6-sol`, xhigh. Слабее — сказать сразу.
 2. **Формат** ⏸ — картинка `reference/style-previews/formats.jpg` в чат: рилс 9:16 или YouTube 16:9.
-3. **Стиль** ⏸ — картинка `reference/style-previews/styles.jpg`: КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ или свой
-   (`knowledge/montage-concepts.md`). Выбор — в `videos/<проект>/CONCEPT.md`.
+3. **Стиль** ⏸ — картинки `reference/style-previews/styles.jpg` (1–4: КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ) и
+   `reference/style-previews/more-styles.jpg` (5–12: PRISM, ORBIT, TRACE, PULSE, экспертное стекло, портрет-квадрат,
+   Apple depth, подкаст) или свой (`knowledge/montage-concepts.md`, каталог `patterns/README.md`). Выбор — в `CONCEPT.md`.
 4. **Опрос по одному вопросу** ⏸: о чём и зачем → текст → запись → материалы → референсы → как сдать. Бриф — `BRIEF.md`.
 5. **Текст** ⏸ (если нужен): ресёрч с источниками → черновик по `knowledge/06_copywriting.md` → три скептика → финал владельцу.
 6. **Монтаж** на Remotion по навыку `remotion-montage`: `bash scripts/new-video.sh` → карта монтажа → блоки и Storybook →

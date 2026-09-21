@@ -20,6 +20,14 @@ description: Build every new video in this repository on the studio stack — Re
 - **Шаблон** `studio/src/template` — стиль КАНВАС в двух форматах: `Template.tsx` (сборка), `blocks.tsx` (хук, список, цифра,
   логотипы, призыв), `desk.tsx` (стол, карточки, пунктир), `canvas.tsx` (камера, курсор), `Speaker.tsx`, `formats.ts` рядом.
 
+## Паттерны
+
+Каталог — `patterns/README.md`: стили 1–12 с документами и кадрами готовых роликов (`patterns/reels/<ролик>/frames.jpg`),
+паттерны движения (`studio/src/examples/vibe/blocks/`: колода, рентген, слот-машина, разрыв кадра, перемотка стройки,
+разбор на детали, переливание), код утверждённых роликов 19–22 в `studio/src/examples/`, приёмы (`patterns/techniques/`)
+и разборы референсов (`patterns/breakdowns/`). До карты монтажа — прочитать документы выбранного стиля и его грабли.
+Код из `examples/` — образец: блок переносится в `studio/src/videos/<проект>/` и подгоняется под текст, ролик целиком не копируется.
+
 ## Форматы — `studio/src/formats.ts`
 
 | | Рилс | YouTube |

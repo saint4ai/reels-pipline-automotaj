@@ -5,7 +5,7 @@
 **Стек — Remotion + Storybook** (папка `studio/`, навык `.claude/skills/remotion-montage`). HyperFrames для новых роликов не используется; старые HyperFrames-проекты и `scripts/pipe.py` — история, `docs/legacy-hyperframes.md`.
 
 **Первое действие после установки и в любой сессии без конкретной задачи — опрос владельца** по `docs/agent-contract/WORKFLOW.md` (навык `reel-workflow`):
-модель и усилие → **формат**: рилс или YouTube (картинка `reference/style-previews/formats.jpg` в чат) → **стиль**: КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ или свой (картинка `reference/style-previews/styles.jpg`, `knowledge/montage-concepts.md`) → вопросы по одному → текст с ресёрчем и тремя скептиками → монтаж → листы кадров каждые 2 с → рендер. Быстрый запуск: команда `/reel`. Рендер запрещён без `videos/<проект>/BRIEF.md` и `CONCEPT.md`.
+модель и усилие → **формат**: рилс или YouTube (картинка `reference/style-previews/formats.jpg` в чат) → **стиль**: 1–4 КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ, паттерны 5–12 или свой (картинки `reference/style-previews/styles.jpg` и `more-styles.jpg`, `knowledge/montage-concepts.md`, каталог `patterns/README.md`) → вопросы по одному → текст с ресёрчем и тремя скептиками → монтаж → листы кадров каждые 2 с → рендер. Быстрый запуск: команда `/reel`. Рендер запрещён без `videos/<проект>/BRIEF.md` и `CONCEPT.md`.
 
 @CONTEXT.md
 
