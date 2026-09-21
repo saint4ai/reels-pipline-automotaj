@@ -1,0 +1,7 @@
+node_modules/
+out/
+storybook-static/
+# записи и рендеры проектов — не в git
+public/projects/
+*.mp4
+*.mov

@@ -1,0 +1,59 @@
+{
+  "name": "reels-studio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "typecheck": "tsc --noEmit",
+    "qa": "node scripts/qa-fit.mjs",
+    "stills": "node scripts/stills.mjs",
+    "render": "remotion render src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "private": "true",
+  "sideEffects": [
+    "*.css",
+    "**/fonts.ts"
+  ],
+  "dependencies": {
+    "@heroui/react": "^3.2.6",
+    "@heroui/styles": "^3.2.6",
+    "@internationalized/date": "^3.12.4",
+    "@react-aria/ssr": "^3.10.1",
+    "@react-aria/utils": "^3.34.1",
+    "@react-three/fiber": "^9.7.0",
+    "@remotion/cli": "^4.0.526",
+    "@remotion/fonts": "^4.0.526",
+    "@remotion/media": "^4.0.526",
+    "@remotion/paths": "^4.0.526",
+    "@remotion/player": "^4.0.526",
+    "@remotion/three": "^4.0.526",
+    "@remotion/transitions": "^4.0.526",
+    "react": "^19.3.0",
+    "react-aria": "^3.52.1",
+    "react-aria-components": "^1.21.1",
+    "react-dom": "^19.3.0",
+    "remotion": "^4.0.526",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "@remotion/tailwind-v4": "^4.0.526",
+    "@storybook/react-vite": "^10.6.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "fontkit": "^2.0.4",
+    "storybook": "^10.6.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

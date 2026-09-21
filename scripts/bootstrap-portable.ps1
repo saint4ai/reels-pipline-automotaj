@@ -46,5 +46,11 @@ if ($WithExternalSkills) {
 if ($missing.Count -gt 0) {
   throw "Не хватает: $($missing -join ', '). Попроси Claude поставить их и запусти bootstrap ещё раз."
 }
-& (Get-Command npx).Source --yes hyperframes@0.8.20 doctor
-Write-Host "Готово. Дальше: bash scripts/new-reel.sh <id> (в WSL) или попроси Claude создать проект."
+Write-Host "Студия: зависимости Remotion + Storybook"
+Push-Location (Join-Path $PSScriptRoot "..\studio")
+try {
+  & (Get-Command npm).Source ci --no-audit --no-fund
+  & (Get-Command npx).Source remotion browser ensure
+} finally { Pop-Location }
+Write-Host "Готово. Дальше: опрос владельца по docs/agent-contract/WORKFLOW.md (формат → стиль → вопросы по одному)."
+Write-Host "Новый ролик: bash scripts/new-video.sh <id> <reels|youtube> <запись.mp4> (в WSL или Git Bash)."

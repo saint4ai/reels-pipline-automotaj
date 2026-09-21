@@ -4,7 +4,8 @@
 Блокирует (exit 2, текст в stderr уходит агенту):
   - Read/cat/sed/head целиком по большим файлам (clips-index, 01_catalog, SKILL.md, index.html > 20 КБ)
     → вместо этого pipe.py scenes/captions или grep; кусок — Read с offset/limit.
-  - hyperframes render мимо scripts/render-safe.sh.
+  - hyperframes render мимо scripts/render-safe.sh (старые проекты HyperFrames).
+Свои навыки монтажа (.claude/skills/remotion-montage, reel-workflow) читаются целиком.
 Обход на один вызов: ALLOW_BIG_READ=1 в окружении команды. Отказ всегда объясняет, что делать.
 """
 import json
@@ -39,6 +40,9 @@ def main() -> None:
     inp = d.get("tool_input") or {}
     if tool == "Read":
         p = str(inp.get("file_path", ""))
+        # свои навыки монтажа читаются целиком — это рабочие инструкции, а не справочник
+        if re.search(r"\.claude/skills/(remotion-montage|reel-workflow)/SKILL\.md$", p):
+            sys.exit(0)
         if any(re.search(b, p) for b in BIG):
             deny(f"Файл {os.path.basename(p)} не читаем целиком: grep по конкретному запросу. Обход: ALLOW_BIG_READ=1.")
         if re.search(HTML, p) and not (inp.get("offset") or inp.get("limit")):

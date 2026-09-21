@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Подготовка репозитория на новой машине (WSL / macOS / Linux).
 #   bash scripts/bootstrap-portable.sh [--codex] [--with-external-skills]
-# Проверяет инструменты, ставит сторож секретов перед коммитом и показывает, чего не хватает.
+# Проверяет инструменты, ставит студию (Remotion + Storybook) и браузер рендера, сторож секретов перед коммитом.
 # Навыки для Claude Code уже лежат в .claude/skills и подхватываются сами; --codex копирует их в Codex.
 set -euo pipefail
 
@@ -20,7 +20,7 @@ missing=()
 check() { command -v "$1" >/dev/null 2>&1 && echo "ok   $1" || { echo "нет  $1 — $2"; missing+=("$1"); }; }
 check node    "нужен Node.js 22 или новее"
 check npx     "идёт вместе с Node.js"
-check ffmpeg  "нужен для подготовки медиа и рендера"
+check ffmpeg  "нужен для записи, расшифровки и мастеринга звука"
 check ffprobe "идёт вместе с ffmpeg"
 check python3 "нужен Python 3.10 или новее"
 if command -v node >/dev/null 2>&1; then
@@ -55,8 +55,11 @@ if [[ "$with_external" == 1 ]]; then
 fi
 
 if [[ ${#missing[@]} -eq 0 ]]; then
-  npx --yes hyperframes@0.8.20 doctor || true
-  echo "Готово. Дальше: bash scripts/new-reel.sh <id> → bash scripts/prepare-media.sh videos/<id> <запись>"
+  echo "Студия: зависимости Remotion + Storybook"
+  (cd "$repo_root_path/studio" && npm ci --no-audit --no-fund && npx remotion browser ensure)
+  (cd "$repo_root_path/studio" && npx tsc --noEmit) && echo "ok   студия: типы сходятся"
+  echo "Готово. Дальше: опрос владельца по docs/agent-contract/WORKFLOW.md (формат → стиль → вопросы по одному)."
+  echo "Новый ролик: bash scripts/new-video.sh <id> <reels|youtube> <запись.mp4>"
 else
   echo "Не хватает: ${missing[*]}. Попроси Claude поставить их и запусти bootstrap ещё раз." >&2
   exit 1

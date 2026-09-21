@@ -67,3 +67,10 @@ secrets/
 # Полные логи рендера и QA: только локально, агенту не нужны
 logs/
 !logs/.gitkeep
+
+# Студия Remotion: звуки, шрифты и настройки npm — часть репозитория (без них студия не собирается)
+!studio/public/sfx/*.wav
+!studio/public/fonts/
+!studio/.npmrc
+# записи владельца в студии — только локально
+studio/public/projects/

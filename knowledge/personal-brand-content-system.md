@@ -1,3 +1,6 @@
+> **С 21.09.2026:** раскладка, шрифты, размеры субтитров и геометрия спикера в этом файле — эпоха HyperFrames 1080×1920.
+> Для новых роликов действуют `studio/src/formats.ts` и навык `.claude/skills/remotion-montage`. Отсюда берутся бренд, голос, рубрики и CTA.
+
 # Personal Brand Content System — saint4ai × onAI
 
 Last confirmed by the user: `2026-09-02`.

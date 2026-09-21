@@ -2,12 +2,14 @@
 
 **Владелец проекта.** Правила писались под автора, поэтому в них встречается «Александр». Если пользователь не Александр, «Александр» в правилах — это владелец проекта, то есть текущий пользователь: вопросы по формату, стилю и приёмке задавай ему. Новичку — `START.md`.
 
-**Первое действие после установки и в любой сессии без конкретной задачи — опрос владельца.** Любой новый ролик начинается с него — этапы и стоп-точки в `docs/agent-contract/WORKFLOW.md` (навык `reel-workflow`): модель и усилие → опрос по одному вопросу → **выбор концепции монтажа** (`knowledge/montage-concepts.md`, превью `reference/style-previews/four-styles.png` картинкой в чат) → текст с ресёрчем и тремя скептиками → монтаж → кадры → рендер. Быстрый запуск: команда `/reel`. Рендер запрещён без `videos/<проект>/BRIEF.md` и `CONCEPT.md`.
+**Стек — Remotion + Storybook** (папка `studio/`, навык `.claude/skills/remotion-montage`). HyperFrames для новых роликов не используется; старые HyperFrames-проекты и `scripts/pipe.py` — история, `docs/legacy-hyperframes.md`.
+
+**Первое действие после установки и в любой сессии без конкретной задачи — опрос владельца** по `docs/agent-contract/WORKFLOW.md` (навык `reel-workflow`):
+модель и усилие → **формат**: рилс или YouTube (картинка `reference/style-previews/formats.jpg` в чат) → **стиль**: КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ или свой (картинка `reference/style-previews/styles.jpg`, `knowledge/montage-concepts.md`) → вопросы по одному → текст с ресёрчем и тремя скептиками → монтаж → листы кадров каждые 2 с → рендер. Быстрый запуск: команда `/reel`. Рендер запрещён без `videos/<проект>/BRIEF.md` и `CONCEPT.md`.
 
 @CONTEXT.md
 
 Бренд, форматы, CTA: `knowledge/personal-brand-content-system.md` — читать в режиссёрской сессии, не в сборке.
-Открытые вопросы формата, которые решает только Александр: `docs/rules-reconcile.md`.
-Монтаж любого ролика — строго по `docs/agent-contract/MONTAGE-RUNBOOK.md`.
+Тексты и хуки: `knowledge/06_copywriting.md` (стоп-лист штампов).
 
 Правила поведения агента — скилл `karpathy-guidelines` и `docs/agent-contract/KARPATHY-MONTAGE.md` (фазы, ворота, бюджеты).
