@@ -5,3 +5,5 @@ storybook-static/
 public/projects/
 *.mp4
 *.mov
+.whisper/
+src/videos/test-*/

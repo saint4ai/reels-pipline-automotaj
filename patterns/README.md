@@ -10,33 +10,30 @@
 
 У каждого ролика в `patterns/reels/<ролик>/` лежит `frames.jpg` — шесть кадров из готового MP4.
 
-## Стили 1–4 — на студии Remotion
+## Стили 1–12 — все на Remotion
 
-| № | Стиль | Ролик-образец | Документы | Код |
+У каждого стиля: документ `patterns/styles/<стиль>/PATTERN.md` (механика, код, раскладка, что менять под ролик, что владелец
+принимал и отклонял) и ролик-образец в `patterns/reels/` с кадрами готового MP4.
+
+| № | Стиль | Статус | Композиции в студии | Код |
 |---|---|---|---|---|
-| 1 | **КАНВАС** — один холст, карточки-плиты с тетрадной сеткой, камера по пунктиру за курсором агента, клики по пунктам, неон на приехавшей карточке | 22 «вайб-кодер» | `reels/r22-live-canvas/` | шаблон `studio/src/template/`, полный ролик `studio/src/examples/course/live/` |
-| 2 | **СТЕКЛО** — Liquid Glass с преломлением, прожекторы, луна, рифлёное стекло, капсулы, стеклянные предметы | 21 «монтаж-агент» | `reels/r21-liquid-glass/` (PATTERNS — приёмы и грабли O-1…O-24) | `studio/src/kit/liquid/`, ролик `studio/src/examples/montage/` |
-| 3 | **ПОСТЕР** — огромная типографика, цветные заливки, штрихкоды, срезанные углы, стеклянный предмет поверх букв | 20 «деньги / коннекторы» | `reels/r20-techno-poster/` | `studio/src/kit/poster.tsx`, ролик `studio/src/examples/money/poster/` |
-| 4 | **СЦЕНЫ** — фон меняется каждые 3–7 с: портал, размытие в цвет, свечение, рывок, сжатие в узел, уход в тёмное; иллюминатор, телефон, тогл | 19 «ИИ-ассистент в директе» | `reels/r19-direct-assistant/` (PATTERNS + `tools/blur_private.py`) | `studio/src/kit/{presentations,backdrops,Porthole,Phone,Toggle}.tsx`, ролик `studio/src/examples/direct/` |
+| 1 | **КАНВАС** — один холст, карточки-плиты, камера по пунктиру за курсором агента, клики по пунктам | утверждён | `Template-Reels`, `Template-YouTube` | `studio/src/template/` |
+| 2 | **СТЕКЛО** — Liquid Glass с преломлением, прожекторы, луна, капсулы, стеклянные предметы | утверждён | образец ролика | `studio/src/kit/liquid/`, `studio/src/examples/montage/` |
+| 3 | **ПОСТЕР** — огромная типографика, заливки, штрихкоды, стеклянный предмет поверх букв | утверждён | образец ролика | `studio/src/kit/poster.tsx`, `studio/src/examples/money/poster/` |
+| 4 | **СЦЕНЫ** — фон каждые 3–7 с, портал, размытие в цвет, свечение, рывок, иллюминатор, телефон, тогл | утверждён | `SceneKit` | `studio/src/kit/presentations.tsx`, `studio/src/examples/direct/` |
+| 5 | **PRISM** — стеклянная капсула пружиной раскрывается в карточку-интерфейс на светлой платине | утверждён | `PRISM-Reels`, `PRISM-YouTube` | `studio/src/styles/prism.tsx` |
+| 6 | **ORBIT** — космос, предметы и логотипы на трёх слоях глубины плывут без остановки | утверждён | `ORBIT-Reels`, `ORBIT-YouTube` | `studio/src/styles/orbit.tsx` |
+| 7 | **TRACE** — тетрадь, оранжевая ручка дорисовывает подчёркивания, галочки и связи | утверждён | `TRACE-Reels`, `TRACE-YouTube` | `studio/src/styles/trace.tsx` |
+| 8 | **PULSE** — круг-рассказчик пульсирует в такт речи, крупные предметы на каждом блоке | кандидат | `PULSE-Reels`, `PULSE-YouTube` | `studio/src/styles/pulse.tsx` |
+| 9 | **ЭКСПЕРТНОЕ СТЕКЛО** — платина, матовое стекло, квадрат спикера, рукописные пометки | направление одобрено | `GLASS-Reels`, `GLASS-YouTube` | `studio/src/styles/glass.tsx` |
+| 10 | **ПОРТРЕТ-КВАДРАТ** — квадрат спикера переезжает по нижнему коридору, тёмные и светлые сцены | сдан в ролике | `PORTRAIT-Reels`, `PORTRAIT-YouTube` | `studio/src/styles/portrait.tsx` |
+| 11 | **APPLE DEPTH** — спикер на всю нижнюю половину, сверху тёмная сцена с прожектором | проба | `APPLE-Reels`, `APPLE-YouTube` | `studio/src/styles/apple.tsx` |
+| 12 | **ПОДКАСТ** — кадр подкаста снизу, доска с маркером сверху | сдан в серии | `PODCAST-Reels`, `PODCAST-YouTube` | `studio/src/styles/podcast.tsx` |
 
-## Паттерны 5–12 — из прошлых роликов
-
-Собирались до перехода на Remotion (HyperFrames). Механика переносится: агент собирает её из блоков `studio/src/kit`
-по документу паттерна, геометрию берёт из `studio/src/formats.ts`, а не из старых 1080×1920.
-
-| № | Паттерн | Механика | Когда подходит | Документы |
-|---|---|---|---|---|
-| 5 | **PRISM** | маленький стеклянный контрол раскрывается в объясняющий интерфейс и сворачивается в результат | показ сервиса, «как это работает» | `styles/prism-interface/`, `reels/r14-codebase-prism/` (FINAL-REPORT-v016 — эталон исполнения) |
-| 6 | **ORBIT** | предметы и настоящие логотипы на слоях глубины, мягкий параллакс не стихает, из них собирается структура | связка сервисов, обзор инструментов | `styles/orbit-depth/` (+ `causal-patterns.md`), `reels/r13-google-orbit/`, `reels/r16-deepseek-orbit/`, `reels/r17-orbit-7702/` |
-| 7 | **TRACE** | тетрадная сетка, крупные числа, логика дорисовывается на глазах, ошибка исправляется в кадре | разбор, расчёт, по шагам | `styles/trace-notebook/`, `reels/r15-otdel-trace/` |
-| 8 | **PULSE** | звук ведёт монтаж: голова-рассказчик и крупные предметы по акцентам речи | ролик без съёмки лица, аудио-первый | `styles/pulse-narrator/`, `reels/pulse-narrator/` |
-| 9 | **ЭКСПЕРТНОЕ СТЕКЛО** | платиновый Liquid Glass, компактный квадрат спикера, подчёркивание каждого слова, рукописный Caveat | экспертный разбор с записью лица | `styles/liquid-glass-expert/` (`references/montage-pattern-ru.md`), `reels/liquid-glass-expert/`, `techniques/liquid-glass-expert.md`, `techniques/liquid-glass-errors.md` |
-| 10 | **ПОРТРЕТ-КВАДРАТ** | квадрат спикера переезжает по свободным коридорам, схемы в стекле | продажа через схему, много смены раскладок | `reels/r11-claude-sales-glass/PORTRAIT-PATTERN.md` |
-| 11 | **APPLE DEPTH** | спикер на всю нижнюю половину, графика сверху с глубиной и бликами как у Apple | короткий показ продукта | `reels/apple-depth/`, `breakdowns/apple-style-breakdown.md` |
-| 12 | **ПОДКАСТ** | кадр подкаста снизу, доска с терминами, цифрами и схемами сверху, шов посередине | нарезки из подкаста | `reels/podcast-split/`, `docs/agent-contract/PODCAST-ARCHETYPES.md`, `knowledge/11_formats.md` |
-
-Ещё: **кукольный рассказчик на схемах** — `styles/schematic-puppet/`, `techniques/schematic-puppet-layout.md`,
-`techniques/puppet-approved-and-economy.md`; **платиновая дизайн-система первого формата** — `reels/r01-composio-platinum/`.
+Стили 5–12 собраны на одном движке `studio/src/styles/engine.tsx`: данные ролика — те же блоки, что у КАНВАСА (`hook`, `list`,
+`stat`, `logos`, `flow`, `cta`), сцена на каждый блок, переход между сценами — из `kit/presentations`, спикер и субтитры поверх.
+Поменять стиль ролика = поменять одну строку в точке входа (`reelOf(ORBIT)` вместо `reelOf(PRISM)`). Раскладки спикера:
+`card` (карточка по формату), `square`, `roam` (квадрат переезжает), `circle` (пульс по речи), `half` (половина кадра), `podcast`.
 
 ## Паттерны движения — отдельные блоки
 
@@ -78,26 +75,30 @@
 | `presentations` | переходы сцен, снятые с референса по кадрам: `portal`, `blurThrough`, `bloom`, `whip`, `shrinkTo`, `lift` |
 | `liquid/Glyph` | пролёт камеры сквозь букву (`scripts/glyph-paths.mjs`) |
 
+## Эффекты текста — `studio/src/kit/remocn/`
+
+Маркер-выделение, RGB-глитч, подъём по буквам, появление из-под маски, трекинг, блик по слову, матричная расшифровка, барабан
+слов, бегущее число, рукописные обводка / подчёркивание / стрелка (покадрово «на двойках»), печать с кареткой, терминал,
+симулированный курсор. Витрина — композиция `TextFx`; ранние готовые карточки (факт, крупное число, «против», цитата, чек-лист,
+три тарифа, глава, пометки, графики, схема-поток, плавный наезд) — `studio/src/examples/early/`.
+
 ## Приёмы и правила — `techniques/`
 
 | Файл | Что внутри |
 |---|---|
-| `montage-final-contract.md` | общий контракт всех концепций: польза → объект → объяснение, якорь на стыках, контейнеры, фоны, звук |
+| `montage-principles.md` | общие принципы всех стилей: польза → объект → объяснение, якорь на стыках, контейнеры, фоны, звук, приёмка |
 | `object-transformation-patterns.md` | динамическая объектная анимация: предмет превращается по смыслу фразы |
 | `pronin-premium-reel-pipeline.md` | премиальный схематичный рилс по шагам |
 | `pronin-media-montage-pattern.md`, `dashi-agent-montage-pattern.md` | паттерны двух сильных авторов из разбора конкурентов |
 | `timochko-techniques.md` | свод техник из разбора «клод + инста» |
 | `reels-retention-plan-2026-09-19.md` | удержание, эмоция, комментарии: что менять в монтаже и тексте |
 | `instagram-reels-competitor-rules.md` | правила из аудита конкурентов |
-| `12_animation_architecture.md` | пять слоёв анимации и откуда что берётся |
 | `audio-apple-pack.md` | правила звука: выбор по действию, обрезка, вариации, громкость |
-| `liquid-glass-expert.md`, `liquid-glass-errors.md` | решения по стеклу и реестр ошибок, которые уже стоили пересборок |
-| `schematic-puppet-layout.md`, `puppet-approved-and-economy.md` | кукольный рассказчик: раскладка и экономия |
 
 ## Разборы референсов — `breakdowns/`
 
 Pronin (канвас и маршрут по кадрам, `pronin-canvas-2026-09-18.md`, `pronin-route-2026-09-18.md`, полный аудит), Dashi (аудит),
-Apple-стиль, пресеты Polyas (Premiere → числа), слияние стилей Eli, паттерны 21st.dev, переносимость библиотек анимации.
+Apple-стиль, пресеты Polyas (Premiere → числа Remotion), слияние стилей Eli, разбор и план по 21st.dev.
 Свой новый разбор — по образцу `reference/breakdowns/2026-09-02-ref-0902-claude-limits.md` (см. `START.md` §6).
 
 ## Карта путей
@@ -112,9 +113,10 @@ Apple-стиль, пресеты Polyas (Premiere → числа), слияни�
 | `public/objects/*.png` | `studio/public/objects/*.webp` |
 | `reference/brand-logos/…` | `studio/public/brand/…` |
 | `reference/audio/onai-apple-pack` | `studio/public/sfx/` (нарезки) |
-| `skills/onai-<стиль>/` | `patterns/styles/<стиль>/` |
+| `skills/onai-<стиль>/` | `patterns/styles/<стиль>/PATTERN.md` |
 | `videos/<ролик>/PATTERNS.md`, `DIRECTION.md` | `patterns/reels/<ролик>/` |
 | `knowledge/<файл>` приёмов | `patterns/techniques/<файл>` |
+| `skills/onai-reels-script/` | `patterns/writing/reels-script/` (навык текста рилса) |
 
 Код роликов в `studio/src/examples/` — образцы: он проходит проверку типов, но записи и скриншоты этих роликов в репозиторий
 не входят, поэтому целиком их не рендерить — брать блоки и приёмы в свой ролик.

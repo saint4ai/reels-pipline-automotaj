@@ -3,7 +3,7 @@
 Источник: `C:\Users\<владелец>\Desktop\POLYAS_REELS_PACK_2026` (Polyas Media, t.me/mediapolyas). Два файла `.prfpset` —
 это XML Premiere Pro с ключевыми кадрами эффектов; повторно проверены 06.09.2026 (тики 254 016 000 000/с).
 Интерполяция содержит коды, скорости, influence и пространственные тангенсы: один код не описывает всю кривую.
-Пресет — рецепт эффектов Premiere, не медиа и не готовая библиотека JavaScript. Перенос в GSAP — адаптация,
+Пресет — рецепт эффектов Premiere, не медиа и не готовая библиотека JavaScript. Перенос в Remotion (`interpolate` + кривая `Easing.bezier`) — адаптация,
 не автоматический импорт и не пиксельно точная копия. XML не устанавливает условия распространения пака.
 
 ## «Анимации текста.prfpset» — 4 пресета Polyas, один рецепт в четырёх направлениях
@@ -15,8 +15,8 @@
 | Появление слева | 68 → 0 | x 0.328 → 0.5 (−17.2 % ширины) | 0 → 100 | 0.70 с |
 | Появление справа | 68 → 0 | x 0.643 → 0.5 (+14.3 %) | 4 → 100 | 0.70 с |
 
-В коде: `enterText(el, at, dir)` в `videos/reels-4-connectors/parts/scenes.js` — blur 28 px CSS (≈ 68 в Premiere),
-сдвиг 131 / −149 / −186 / +154 px на кадре 1080×1920, `power2.inOut`, 0.70 с. CSS blur 28 и эта GSAP-кривая —
+В Remotion: вход текста — blur 28 px (≈ 68 в Premiere),
+сдвиг 131 / −149 / −186 / +154 px на кадре 1080×1920, `power2.inOut`, 0.70 с. CSS blur 28 и эта кривая (`power2.inOut` = `Easing.bezier(0.45, 0, 0.55, 1)`) —
 художественное приближение, не доказанная эквивалентность Gaussian Blur 68 в Adobe.
 
 ## «POLYAS_REELS_PACK_2026.prfpset» — 14 записей, включая информационную 00 (13 рабочих)
@@ -50,6 +50,6 @@ Adobe перечисляет VR Chromatic Aberrations в штатных immersiv
 Одно слово Mettle не доказывает необходимость покупки стороннего плагина. Точную работу старого пресета в Premiere 26 надо проверять импортом и короткой пробой; такого теста здесь ещё не было.
 
 Локально найдены `AfterFX.exe` 26.2.1, `aerender.exe` 26.2.1.2 и Premiere Pro 26.0.0.72 в `C:/Program Files/Adobe/`.
-В пользовательской папке нет `.aep`, `.mogrt` или `.ffx`; `.prfpset` относится к Premiere, не импортируется непосредственно в After Effects или HyperFrames.
+В пользовательской папке нет `.aep`, `.mogrt` или `.ffx`; `.prfpset` относится к Premiere, не импортируется непосредственно в After Effects или Remotion.
 After Effects допускает автоматический рендер готовой композиции через aerender: https://helpx.adobe.com/after-effects/desktop/render-and-export/automate-rendering/automated-rendering-network-rendering.html.
 Наличие EXE проверено, лицензия/рендер/импорт не тестировались. Никакие плагины не установлены и настройки Adobe не изменены.

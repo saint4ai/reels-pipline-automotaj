@@ -1,6 +1,6 @@
 ---
 name: remotion-montage
-description: Build every new video in this repository on the studio stack — Remotion for rendering, Storybook as the showcase where each block is accepted on its own, the ONai depth and liquid-glass kit in studio/src. Covers both formats (Reels 9:16 1440×2560 and YouTube 16:9 2560×1440), the four styles (КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ), the montage map, container QA, review sheets every 2 seconds, render and loudness mastering. Use after the format and style are chosen (reel-workflow); not for old HyperFrames projects.
+description: Build every new video in this repository on the studio stack — Remotion for rendering, Storybook as the showcase where each block is accepted on its own, the ONai depth and liquid-glass kit in studio/src. Covers both formats (Reels 9:16 1440×2560 and YouTube 16:9 2560×1440), the four styles (КАНВАС, СТЕКЛО, ПОСТЕР, СЦЕНЫ), the montage map, container QA, review sheets every 2 seconds, render and loudness mastering. Use after the format and style are chosen (reel-workflow).
 ---
 
 # Монтаж на Remotion + Storybook
@@ -27,6 +27,15 @@ description: Build every new video in this repository on the studio stack — Re
 разбор на детали, переливание), код утверждённых роликов 19–22 в `studio/src/examples/`, приёмы (`patterns/techniques/`)
 и разборы референсов (`patterns/breakdowns/`). До карты монтажа — прочитать документы выбранного стиля и его грабли.
 Код из `examples/` — образец: блок переносится в `studio/src/videos/<проект>/` и подгоняется под текст, ролик целиком не копируется.
+
+## Стили 5–12 — движок `studio/src/styles`
+
+`engine.tsx` собирает ролик из тех же блоков, что и шаблон КАНВАС (`hook`, `list`, `stat`, `logos`, `flow`, `cta`): сцена на блок
+(`TransitionSeries`, переход 0,5 с входит в начало новой сцены — смена фона попадает ровно на фразу), поверх — спикер, субтитры
+и звук. Стиль (`StyleDef`) задаёт фон сцены, отрисовку блоков, переход, раскладку спикера (`card`, `square`, `roam`, `circle`,
+`half`, `podcast`), зону графики и субтитры. PRISM рисует блоки сам (`prism.tsx`), остальные — общей раскладкой `skinned.tsx`
+со своей «кожей» и своими слоями (глубина ORBIT, ручка TRACE, предметы PULSE, маркер подкаста). Сменить стиль ролика — одна
+строка в точке входа: `reelOf(ORBIT)`. Своя механика блока, которой нет в стиле, пишется в `studio/src/videos/<проект>/`.
 
 ## Форматы — `studio/src/formats.ts`
 

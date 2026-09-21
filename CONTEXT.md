@@ -35,6 +35,8 @@ bash scripts/master.sh ../videos/<id>/renders/raw.mp4 ../videos/<id>/renders/fin
 | Форматы и раскладка | `studio/src/formats.ts` |
 | Стили и картинки выбора | `knowledge/montage-concepts.md`, `reference/style-previews/{formats,styles,more-styles}.jpg` |
 | Шаблон КАНВАС | `studio/src/template/` |
+| Стили 5–12 на Remotion (движок + по файлу на стиль) | `studio/src/styles/` |
+| Эффекты текста (маркер, глитч, матрица, барабан, рукописные пометки) | `studio/src/kit/remocn/`, композиция `TextFx` |
 | Каталог паттернов 1–12, блоки движения, приёмы, разборы | `patterns/README.md` |
 | Код утверждённых роликов 19–22 (образцы) | `studio/src/examples/` |
 | Библиотека блоков | `studio/src/kit/`, `studio/src/ds/`, `studio/src/montage/` |

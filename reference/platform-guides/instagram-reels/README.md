@@ -56,7 +56,7 @@ into the delivery master.
   captions, collision-aware layout exceptions and keyframe QA.
 - `safe-zone-1080x1920.json` — source of truth for coordinates, provenance and calculation.
 - `safe-zone-1080x1920.svg` — editable transparent overlay.
-- `safe-zone-1080x1920.png` — generated alpha overlay for HyperFrames, ffmpeg and NLE review.
+- `safe-zone-1080x1920.png` — generated alpha overlay for ffmpeg and NLE review (scale ×4/3 for 2K).
 
 Generate a QA video and five guided frames without changing the master:
 

@@ -40,8 +40,8 @@ const buildLines = (ws: Word[], maxW: number, size: number): Line[] => {
   });
 };
 
-export const Captions: React.FC<{t: number; grow?: (t: number) => number; words?: Word[]; cx?: number; cy?: number; maxW?: number; size?: number; frameW?: number; frameH?: number}> =
-  ({t, grow, words = WORDS, cx = 720, cy = CY, maxW = MAXW, size = SIZE, frameW = 1440, frameH = 2560}) => {
+export const Captions: React.FC<{t: number; grow?: (t: number) => number; words?: Word[]; cx?: number; cy?: number; maxW?: number; size?: number; frameW?: number; frameH?: number; light?: boolean}> =
+  ({t, grow, words = WORDS, cx = 720, cy = CY, maxW = MAXW, size = SIZE, frameW = 1440, frameH = 2560, light = false}) => {
   const SIZE = size, CY = cy, PADX = Math.max(48, size * 0.9);
   const ready = useFontsReady([fontSpec(WEIGHT, size, FAMILY)]);
   const lines = useMemo(() => (ready ? buildLines(words, maxW, size) : []), [ready, words, maxW, size]);
@@ -66,7 +66,7 @@ export const Captions: React.FC<{t: number; grow?: (t: number) => number; words?
         opacity: capVis, transform: `scale(${0.92 + 0.08 * appear})`,
         backdropFilter: 'blur(22px) saturate(1.5)', WebkitBackdropFilter: 'blur(22px) saturate(1.5)',
         boxShadow: '0 3px 6px rgba(0,0,0,.3), 0 18px 40px rgba(0,0,0,.4)'}}>
-        <GlassSurface radius={h / 2} tone="dark" fill={0.5} />
+        <GlassSurface radius={h / 2} tone={light ? 'light' : 'dark'} fill={light ? 0.72 : 0.5} />
       </div>
       {boxes.map((b, i) => {
         const id = line.ids[i], wd = words[id];
@@ -75,11 +75,11 @@ export const Captions: React.FC<{t: number; grow?: (t: number) => number; words?
         const on = interpolate(t, [a, bb, c, d], [0, 1, 1, 0], clamp);
         return (
           <span key={id} style={{position: 'absolute', left: b.x, top: b.y, height: b.h, lineHeight: `${b.h}px`, whiteSpace: 'nowrap',
-            fontFamily: FAMILY, fontWeight: WEIGHT, fontSize: SIZE, color: '#F2F3F5', opacity: textIn * fadeOut,
+            fontFamily: FAMILY, fontWeight: WEIGHT, fontSize: SIZE, color: light ? '#15181B' : '#F2F3F5', opacity: textIn * fadeOut,
             filter: textIn < 1 ? `blur(${(1 - textIn) * 6}px)` : undefined, transform: `translateY(${(1 - textIn) * 8}px)`,
-            textShadow: '0 2px 0 rgba(0,0,0,.35), 0 8px 18px rgba(0,0,0,.45)'}}>
+            textShadow: light ? '0 1px 0 rgba(255,255,255,.8)' : '0 2px 0 rgba(0,0,0,.35), 0 8px 18px rgba(0,0,0,.45)'}}>
             {b.text}
-            <span style={{position: 'absolute', left: 0, right: 0, bottom: 6, height: 5, borderRadius: 3, background: '#3DEDC3',
+            <span style={{position: 'absolute', left: 0, right: 0, bottom: 6, height: 5, borderRadius: 3, background: light ? '#FF7A2F' : '#3DEDC3',
               transform: `scaleX(${on})`, transformOrigin: 'left center', opacity: on, boxShadow: '0 0 10px rgba(61,237,195,.6)'}} />
           </span>
         );

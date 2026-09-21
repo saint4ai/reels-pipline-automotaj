@@ -2,10 +2,7 @@
 
 This public production repository contains or coordinates third-party components. Their original terms remain in force.
 
-- HyperFrames / HeyGen — Apache-2.0 components and tooling; see upstream package notices.
-- GSAP 3.15.0 — Copyright GreenSock. The vendored runtime retains its license header and is subject to the [GSAP Standard License](https://gsap.com/standard-license/).
-- Manrope, JetBrains Mono and STIX Two Text fonts (SIL Open Font License 1.1) — bundled in `fonts/` with their license texts; the example project `videos/reels-1-composio/assets/fonts/` also carries Montserrat and IBM Plex Mono (OFL-1.1) with licenses.
-- Remotion (`remotion`, `@remotion/*`) — Remotion License; see https://remotion.dev/license and the package notices in `studio/node_modules` after `npm ci`.
+- Remotion (`remotion`, `@remotion/*`, including `@remotion/install-whisper-cpp`, which installs whisper.cpp — MIT) — Remotion License; see https://remotion.dev/license and the package notices in `studio/node_modules` after `npm ci`.
 - Storybook, three.js, React, HeroUI, React Aria, Tailwind CSS — MIT / Apache-2.0 per package; dependencies are installed by `npm ci`, not vendored.
 - Fonts in `studio/public/fonts/` — Manrope, Inter Tight, JetBrains Mono, Martian Mono, Tektur, Caveat, Handjet, DotGothic16 (SIL Open Font License 1.1, Google Fonts).
 - Service logos in `studio/public/brand/` are trademarks of their owners, included only to name those services on screen.

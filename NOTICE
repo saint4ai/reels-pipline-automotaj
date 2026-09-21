@@ -47,10 +47,10 @@ Copyright (c) 2026 Alexander (@saint4ai) — onAI Academy
 
     origin=onai-rpa-2026-09   spec=three-laws/v1
 
-Они присутствуют в заголовке каждого скрипта и в константах scripts/pipe.py.
+Они присутствуют в заголовках скриптов и документов.
 Метки переживают переименование файлов, функций и переменных. Проверить:
 
-    python3 scripts/pipe.py --about
+    grep -rn "origin=onai-rpa-2026-09" scripts studio/scripts
 
 --------------------------------------------------------------------------
 СТОРОННИЕ КОМПОНЕНТЫ

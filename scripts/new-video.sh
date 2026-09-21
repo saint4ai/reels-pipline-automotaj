@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# origin=onai-rpa-2026-09 spec=three-laws/v1 — onAI Academy, @saint4ai (NOTICE)
 # Новый ролик на студии Remotion: папка проекта, запись спикера в studio/public, пословная расшифровка,
 # данные ролика и своя точка входа в студии.
 #   bash scripts/new-video.sh <id> <reels|youtube> [/путь/к/записи.mp4] [--model medium] [--lang ru]
@@ -29,10 +30,8 @@ if [[ -n "$SRC" ]]; then
   [[ -f "$SRC" ]] || { echo "нет файла записи: $SRC" >&2; exit 2; }
   echo "1/3 запись без кропа → studio/public/projects/$ID/speaker.mp4"
   ffmpeg -v error -y -i "$SRC" -map 0:v:0 -map 0:a:0? -c:v libx264 -crf 16 -preset medium -g 30 -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart "$PUB/speaker.mp4"
-  ffmpeg -v error -y -i "$SRC" -map 0:a:0 -vn -ac 1 -ar 16000 "$P/media/asr.wav"
-  echo "2/3 пословная расшифровка (whisper $model, $lang) → videos/$ID/transcript.json"
-  # распознавание речи — локальный whisper из CLI HyperFrames; рендер при этом идёт на Remotion
-  npx --yes hyperframes@0.8.20 transcribe "$P/media/asr.wav" -d "$P" -m "$model" -l "$lang"
+  echo "2/3 пословная расшифровка (whisper.cpp через Remotion, модель $model, язык $lang) → videos/$ID/transcript.json"
+  (cd "$S" && node scripts/transcribe.mjs "$PUB/speaker.mp4" "$P/transcript.json" --model "$model" --lang "$lang")
   IFS=x read -r W H < <(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0:s=x "$PUB/speaker.mp4")
   DUR="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$PUB/speaker.mp4")"
 fi

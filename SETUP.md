@@ -21,10 +21,10 @@ powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap-portable.ps1 [-Code
 
 ## 1. Системные зависимости
 
-Node.js ≥ 22, ffmpeg/ffprobe, Python 3.10+.
+Node.js ≥ 22, ffmpeg/ffprobe, Python 3.10+; для расшифровки — git, make и компилятор C/C++ (whisper.cpp собирается сам).
 
 - macOS: `brew install node ffmpeg python`
-- WSL / Linux: Node.js ≥ 22 (через nvm или пакет), `sudo apt install ffmpeg python3`
+- WSL / Linux: Node.js ≥ 22 (через nvm или пакет), `sudo apt install ffmpeg python3 build-essential git`
 - Windows без WSL: Node.js и ffmpeg в PATH
 
 Браузер для рендера Remotion ставит сам: `npx remotion browser ensure` (делает bootstrap).
@@ -47,7 +47,7 @@ bash scripts/new-video.sh my-video reels /путь/к/записи.mp4     # и�
 ```
 
 Скрипт кладёт запись без кропа в `studio/public/projects/my-video/`, делает пословную расшифровку `videos/my-video/transcript.json`
-локальным whisper (через `npx hyperframes@0.8.20 transcribe`, модель скачается при первом запуске) и заготовку ролика
+локальным whisper.cpp через `@remotion/install-whisper-cpp` (при первом запуске сам соберёт whisper.cpp и скачает модель) и заготовку ролика
 `studio/src/videos/my-video/`. Для русского нужна многоязычная модель — `medium` по умолчанию или `--model large-v3`;
 модели `*.en` понимают только английский. Опечатки в названиях сервисов — в `studio/src/videos/my-video/words.ts`.
 

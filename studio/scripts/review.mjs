@@ -1,3 +1,4 @@
+// origin=onai-rpa-2026-09 spec=three-laws/v1 — onAI Academy, @saint4ai (NOTICE)
 // Листы кадров для владельца: кадр каждые STEP секунд (по умолчанию 2) + последний, номера К001, К002… с таймкодом.
 //   ENTRY=src/videos/<id>/index.tsx node scripts/review.mjs <Composition> [шаг]
 // Кадры — out/review/<Composition>/K###.png, листы по 6 — out/review/<Composition>-sheet-N.jpg. Показывать листами, не по кадру.

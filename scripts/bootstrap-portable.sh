@@ -23,6 +23,9 @@ check npx     "идёт вместе с Node.js"
 check ffmpeg  "нужен для записи, расшифровки и мастеринга звука"
 check ffprobe "идёт вместе с ffmpeg"
 check python3 "нужен Python 3.10 или новее"
+check make    "нужен для сборки whisper.cpp (расшифровка речи через Remotion)"
+check c++     "компилятор C++ для whisper.cpp: build-essential / Xcode Command Line Tools"
+check git     "нужен для установки whisper.cpp"
 if command -v node >/dev/null 2>&1; then
   major="$(node -p 'process.versions.node.split(".")[0]')"
   [[ "$major" -ge 22 ]] || { echo "нет  node ≥ 22 — сейчас $(node -v)"; missing+=("node22"); }

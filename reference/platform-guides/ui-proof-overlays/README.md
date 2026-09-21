@@ -87,7 +87,7 @@ return and the CTA:
 ## Regenerate PNG previews
 
 The Windows ffmpeg build checked on `2026-08-31` exposes `svg_pipe` demuxing but no SVG decoder,
-so the committed PNGs were generated with the copy of Sharp already cached by HyperFrames. Run
+so the committed PNGs were generated with the copy of Sharp already cached by Remotion (npm ci in studio/). Run
 from the repository root:
 
 ```bash

@@ -2,13 +2,6 @@ node_modules/
 out/
 output.mp4
 *.[Mm][Pp]4
-# User-approved, checksummed transition library and clean portable trims.
-# Keep every other MP4 ignored.
-!reference/transitions/source/*.mp4
-!videos/vibecoding-stack-2026-img7333/public/transitions/glare-chapter.mp4
-!videos/vibecoding-stack-2026-img7333/public/transitions/film-burn-error.mp4
-!videos/vibecoding-stack-2026-img7333/public/transitions/optical-click-a.mp4
-!videos/vibecoding-stack-2026-img7333/public/transitions/optical-click-b.mp4
 *.[Ww][Ee][Bb][Mm]
 *.[Mm][Oo][Vv]
 *.[Mm]4[Aa]

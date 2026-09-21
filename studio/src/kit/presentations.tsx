@@ -1,6 +1,5 @@
-import {AbsoluteFill, Easing, interpolate} from 'remotion';
+import {AbsoluteFill, Easing, interpolate, useVideoConfig} from 'remotion';
 import type {TransitionPresentation, TransitionPresentationComponentProps} from '@remotion/transitions';
-import {H, W} from '../theme';
 
 // Переходы режима «сцены» для TransitionSeries. Каждый снят с референса по кадрам (30 fps):
 // portal 2,0–2,3 с · blurThrough 5,8–6,1 и 29,0–29,3 · bloom 9,9–10,3 · whip 12,5–12,8 · lift 39,2–39,5.
@@ -16,6 +15,7 @@ type P<T extends Record<string, unknown>> = TransitionPresentationComponentProps
 // новая сцена проявляется из размытия. Референс: небо → чёрный, сетка → белая вспышка.
 type BlurThroughProps = {color: string};
 const BlurThroughView: React.FC<P<BlurThroughProps>> = ({children, presentationDirection, presentationProgress: p, passedProps}) => {
+  const {width: W, height: H} = useVideoConfig();
   if (presentationDirection === 'exiting') {
     const k = interpolate(p, [0, 0.6], [0, 1], {...clamp, easing: inn});
     return (
@@ -34,6 +34,7 @@ export const blurThrough = (props: BlurThroughProps): TransitionPresentation<Blu
 // Референс: фигура в балаклаве → фиолетовое свечение → сцена с ключом.
 type BloomProps = {color: string; x?: number; y?: number};
 const BloomView: React.FC<P<BloomProps>> = ({children, presentationDirection, presentationProgress: p, passedProps}) => {
+  const {width: W, height: H} = useVideoConfig();
   const {color, x = W / 2, y = H * 0.55} = passedProps;
   if (presentationDirection === 'exiting') {
     const glow = interpolate(p, [0, 0.55], [0, 1], {...clamp, easing: out});
@@ -55,6 +56,7 @@ export const bloom = (props: BloomProps): TransitionPresentation<BloomProps> => 
 // SVG-фильтр, а не CSS blur: CSS размывает во все стороны. Референс: ключ улетает вбок, фиолетовый фон сменяется чёрным.
 type WhipProps = {dir?: 'left' | 'right' | 'up' | 'down'};
 const WhipView: React.FC<P<WhipProps>> = ({children, presentationDirection, presentationProgress: p, passedProps}) => {
+  const {width: W, height: H} = useVideoConfig();
   const dir = passedProps.dir ?? 'right';
   const horiz = dir === 'left' || dir === 'right';
   const span = horiz ? W : H;
@@ -79,6 +81,7 @@ export const whip = (props: WhipProps = {}): TransitionPresentation<WhipProps> =
 // новая видна сквозь маску той же формы, которая растёт вместе с ней до краёв кадра.
 type PortalProps = {x: number; y: number; w: number; h: number; r: number};
 const PortalView: React.FC<P<PortalProps>> = ({children, presentationDirection, presentationProgress: p, passedProps}) => {
+  const {width: W, height: H} = useVideoConfig();
   const {x, y, w, h, r} = passedProps;
   const cx = x + w / 2, cy = y + h / 2;
   // Масштаб, при котором окно накрывает кадр с запасом, отсчитывая от центра окна.
@@ -99,6 +102,7 @@ export const portal = (props: PortalProps): TransitionPresentation<PortalProps> 
 // Уход вверх с затемнением: сцена уезжает вверх и гаснет в чёрный, новая проявляется из тёмного.
 // Референс: тогл «автомат» → чёрная сцена базы знаний.
 const LiftView: React.FC<P<Record<string, never>>> = ({children, presentationDirection, presentationProgress: p}) => {
+  const {width: W, height: H} = useVideoConfig();
   if (presentationDirection === 'exiting') {
     const k = interpolate(p, [0, 0.65], [0, 1], {...clamp, easing: inn});
     return (
@@ -117,6 +121,7 @@ export const lift = (): TransitionPresentation<Record<string, never>> => ({compo
 // Референс: ключ уменьшается, размывается и остаётся узлом на чёрном холсте.
 type ShrinkProps = {x: number; y: number};
 const ShrinkView: React.FC<P<ShrinkProps>> = ({children, presentationDirection, presentationProgress: p, passedProps}) => {
+  const {width: W, height: H} = useVideoConfig();
   if (presentationDirection === 'exiting') {
     const k = interpolate(p, [0, 0.7], [0, 1], {...clamp, easing: inn});
     return (
@@ -137,6 +142,7 @@ export const shrinkTo = (props: ShrinkProps): TransitionPresentation<ShrinkProps
 // полосы идут одной волной, а не вразнобой сверху и снизу — вразнобой середина стыка читалась как рваные обрывки.
 type StripCutProps = {strips?: number};
 const StripCutView: React.FC<P<StripCutProps>> = ({children, presentationDirection, presentationProgress: p, passedProps}) => {
+  const {width: W, height: H} = useVideoConfig();
   const n = passedProps.strips ?? 6;
   const sw = W / n;
   if (presentationDirection === 'exiting') {

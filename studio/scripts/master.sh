@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# origin=onai-rpa-2026-09 spec=three-laws/v1 — onAI Academy, @saint4ai (NOTICE)
 # Мастеринг звука после рендера: Remotion громкость не выравнивает. Два прохода loudnorm до −14 LUFS / ≤ −1 dBTP,
 # видео копируется без перекодирования. Печатает размер, битрейт и итоговую громкость.
 #   bash scripts/master.sh <raw.mp4> <final.mp4>

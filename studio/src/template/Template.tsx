@@ -69,6 +69,7 @@ export const Template: React.FC<TemplateProps> = ({format, project = DEMO}) => {
         case 'list': return b.ticks.map((tc): [number, string, number] => [tc, 'tick-soft', 0.2]);
         case 'stat': return [[b.countAt, 'counter', 0.18]];
         case 'logos': return b.logos.map((_, i): [number, string, number] => [b.at + 0.3 + i * 0.16, 'pop-warm', 0.16]);
+        case 'flow': return b.nodes.map((_, i): [number, string, number] => [b.at + 0.35 + i * 0.55, 'ui-pop', 0.16]);
         case 'cta': return [[b.typeAt, 'typing', 0.16], [b.typeAt + 0.8, 'ui-glass', 0.24]];
       }
     }),

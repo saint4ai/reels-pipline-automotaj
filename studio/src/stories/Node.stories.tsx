@@ -9,4 +9,4 @@ export const Опасность: S = {args: {label: '0 коннекторов', 
 export const Работает: S = {args: {label: '✓ работает', icon: undefined, tone: 'ok', size: 60}};
 export const Акцент: S = {args: {label: '1 мин', icon: undefined, tone: 'mint', size: 60}};
 export const Коннектор: S = {args: {label: 'Perplexity', icon: 'brand/perplexity.svg'}};
-export const СветлыйЛоготип: S = {args: {label: 'Composio', icon: 'brand/composio.svg', iconBg: '#0B0D10'}};
+export const СветлыйЛоготип: S = {args: {label: 'GitHub', icon: 'brand/github.svg', iconBg: '#0B0D10'}};

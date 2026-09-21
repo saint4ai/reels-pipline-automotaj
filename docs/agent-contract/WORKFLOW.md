@@ -5,7 +5,7 @@
 «Владелец» — тот, кто работает с репозиторием (в правилах он же «Александр», см. `CLAUDE.md`).
 
 Стек один: **Remotion** (рендер) + **Storybook** (витрина, где каждый блок принимается отдельно) — папка `studio/`,
-навык `.claude/skills/remotion-montage`. HyperFrames для новых роликов не используется.
+навык `.claude/skills/remotion-montage`. Всё идёт только через Remotion.
 
 ## Этап 0. Модель и усилие — до первого действия
 
@@ -78,7 +78,8 @@ bash scripts/new-video.sh <проект> <reels|youtube> /путь/к/запис
    просмотреть его `frames.jpg`.
 1. **Карта монтажа** в `videos/<проект>/DIRECTION.md` до кода: время → фраза → фон → что на экране → стык и причина →
    размер карточки спикера. Своя под каждый ролик.
-2. **Блоки** — в `studio/src/videos/<проект>/` (данные шаблона или свои сцены из `studio/src/kit`). Каждый новый блок —
+2. **Блоки** — в `studio/src/videos/<проект>/project.ts`; стиль — одной строкой в точке входа (`Template` для КАНВАСА или
+   `reelOf(<СТИЛЬ>)` для 5–12), своя механика — рядом из `studio/src/kit`. Каждый новый блок —
    история в Storybook (`studio/src/stories/`), сначала принимается там.
 3. **Проверки:** `npm run typecheck`, `ENTRY=… node scripts/qa-fit.mjs <проект>` → `FIT PASS`; `node scripts/qa-fit.mjs FitTest`
    обязан дать `FIT FAIL` (проверка жива).

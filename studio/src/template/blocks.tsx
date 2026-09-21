@@ -9,12 +9,14 @@ import {DARK, DIM, INK, MINT, MINT_INK, NEON, RED, type Pt} from './canvas';
 // работает и в рилсе 9:16, и в YouTube 16:9. Время — секунды ролика. Курсор агента задаётся в координатах листа.
 // Это стартовый набор: под каждый ролик агент придумывает свою карту и свои блоки (DIRECTION.md проекта).
 
-type Base = {id: string; label: string; at: number; tone?: 'dark' | 'light'};
+type Base = {id: string; label: string; at: number; tone?: 'dark' | 'light'; kicker?: string; object?: string};
+export type FlowNode = {label: string; logo?: string; note?: string};
 export type BlockData =
   | (Base & {kind: 'hook'; lines: [string, string]; strike?: string; strikeAt?: number; object?: string})
   | (Base & {kind: 'list'; title: string; items: string[]; ticks: number[]})
   | (Base & {kind: 'stat'; value: number; prefix?: string; suffix?: string; caption: string; countAt: number; bars?: number[]})
   | (Base & {kind: 'logos'; title: string; logos: string[]})
+  | (Base & {kind: 'flow'; title: string; nodes: FlowNode[]})
   | (Base & {kind: 'cta'; word: string; note: string; typeAt: number});
 
 type P<T> = {t: number; b: T; r: Box; light: boolean};
@@ -142,6 +144,49 @@ const Logos: React.FC<P<Extract<BlockData, {kind: 'logos'}>>> = ({t, b, r, light
   );
 };
 
+
+// ——— схема: узлы появляются по одному, пунктир дорисовывается к следующему узлу до его появления ———
+export const flowGeom = (r: Box, n: number) => {
+  const vertical = r.h > r.w * 0.9;
+  const size = vertical ? Math.min(r.h * 0.13, 150) : Math.min(r.w / (n * 1.9), 200);
+  const top = r.y + r.h * (vertical ? 0.24 : 0.36);
+  const span = vertical ? r.h * 0.66 : r.w * 0.84;
+  const step = n > 1 ? span / n : 0;
+  return {vertical, size, pos: (i: number) => vertical
+    ? {x: r.x + r.w * 0.5, y: top + step * (i + 0.5)}
+    : {x: r.x + r.w * 0.08 + step * (i + 0.5), y: top + r.h * 0.2}};
+};
+export const flowTimes = (at: number, n: number) => Array.from({length: n}, (_, i) => at + 0.35 + i * 0.55);
+const Flow: React.FC<P<Extract<BlockData, {kind: 'flow'}>>> = ({t, b, r, light}) => {
+  const G = flowGeom(r, b.nodes.length), T = flowTimes(b.at, b.nodes.length);
+  return (
+    <>
+      <div style={{position: 'absolute', left: r.x, width: r.w, top: r.y + r.h * 0.08, textAlign: 'center', fontFamily: SANS, fontWeight: 800, fontSize: Math.min(r.w * 0.064, 92),
+        letterSpacing: '-0.03em', color: ink(light), textShadow: depth(light), opacity: k(t, b.at, b.at + 0.35)}}>{b.title}</div>
+      <svg width={r.x + r.w} height={r.y + r.h} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
+        {b.nodes.slice(1).map((_, i) => {
+          const a = G.pos(i), c = G.pos(i + 1), d = k(t, T[i + 1] - 0.4, T[i + 1] - 0.05, (v) => v);
+          return d > 0 ? <line key={i} x1={a.x} y1={a.y} x2={a.x + (c.x - a.x) * d} y2={a.y + (c.y - a.y) * d} stroke={MINT} strokeWidth={6}
+            strokeDasharray="18 14" strokeLinecap="round" style={{filter: 'drop-shadow(0 0 10px rgba(61,237,195,.5))'}} /> : null;
+        })}
+      </svg>
+      {b.nodes.map((nd, i) => {
+        const p = G.pos(i), a = k(t, T[i], T[i] + 0.45, E.pop), s = G.size;
+        if (a <= 0) return null;
+        return (
+          <div key={nd.label} style={{position: 'absolute', left: p.x - s * 1.4, top: p.y - s / 2, width: s * 2.8, height: s, borderRadius: s * 0.3,
+            background: light ? '#FFFFFF' : '#1C2126', display: 'flex', alignItems: 'center', gap: s * 0.16, padding: `0 ${s * 0.22}px`, boxSizing: 'border-box',
+            opacity: Math.min(1, a * 2), transform: `scale(${0.6 + 0.4 * a})`,
+            boxShadow: `inset 0 2px 0 rgba(255,255,255,${light ? 0.9 : 0.14}), 0 16px 34px rgba(0,0,0,${light ? 0.14 : 0.45}), 0 0 0 3px rgba(61,237,195,${0.5 * (1 - k(t, T[i] + 0.3, T[i] + 1.2))})`}}>
+            {nd.logo ? <span style={{width: s * 0.56, height: s * 0.56, flex: 'none', borderRadius: s * 0.16, background: '#F4F5F2', display: 'grid', placeItems: 'center'}}><Logo name={nd.logo} size={s * 0.38} /></span> : null}
+            <span style={{fontFamily: SANS, fontWeight: 800, fontSize: s * 0.26, color: ink(light), whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{nd.label}</span>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
 // ——— призыв: в поле комментария печатается кодовое слово, комментарий публикуется, чип закреплён до конца ———
 const Cta: React.FC<P<Extract<BlockData, {kind: 'cta'}>>> = ({t, b, r, light}) => {
   const typed = Math.round(b.word.length * k(t, b.typeAt, b.typeAt + 0.45, (v) => v));
@@ -179,6 +224,7 @@ export const BlockView: React.FC<{t: number; b: BlockData; r: Box; light: boolea
     case 'list': return <List t={t} b={b} r={r} light={light} />;
     case 'stat': return <Stat t={t} b={b} r={r} light={light} />;
     case 'logos': return <Logos t={t} b={b} r={r} light={light} />;
+    case 'flow': return <Flow t={t} b={b} r={r} light={light} />;
     case 'cta': return <Cta t={t} b={b} r={r} light={light} />;
   }
 };
