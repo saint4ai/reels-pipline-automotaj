@@ -40,15 +40,14 @@ const buildLines = (ws: Word[], maxW: number, size: number): Line[] => {
   });
 };
 
-// Ширина капсулы в момент t. Капсула перетекает по ширине от строки к строке за 0,22 с, но НИКОГДА не уже видимого
-// текста: пока растёт под более длинную строку, текст новой строки ждёт (delay), а если текст уже виден — капсула
-// берёт его ширину сразу. Правило Александра 24.09.2026: текст не выходит за контейнер ни в одном кадре.
+// Ширина капсулы в момент t — НИКОГДА не уже видимого текста (правило Александра 24.09.2026: текст не выходит за
+// контейнер ни в одном кадре). Новая строка длиннее — капсула сразу берёт её ширину; короче — плавно сужается за 0,22 с.
+// Задерживать текст, пока капсула растёт, нельзя: получается пустая капсула между строками.
 export const capsuleAt = (lines: Line[], li: number, t: number, padX: number) => {
   const line = lines[li];
   const prev = li > 0 && Math.abs(lines[li - 1].to - line.from) < 0.02 ? lines[li - 1] : null;
   const k = interpolate(t, [line.from, line.from + 0.22], [0, 1], {...clamp, easing: flow});
-  const delay = prev && line.w > prev.w ? 0.16 : 0;
-  const textIn = interpolate(t, [line.from + delay, line.from + delay + 0.16], [0, 1], {...clamp, easing: ease});
+  const textIn = interpolate(t, [line.from, line.from + 0.16], [0, 1], {...clamp, easing: ease});
   const morph = prev ? prev.w + (line.w - prev.w) * k : line.w;
   const w = Math.max(morph, textIn > 0 ? line.w : 0) + padX * 2;
   return {w, textIn, prev};
